@@ -1,0 +1,105 @@
+This GRCh38 Union README.txt file was generated on 20200221 by Justin Zook
+
+-------------------
+GENERAL INFORMATION
+-------------------
+
+Title of Dataset: GRCh38 Union Stratification BED files
+
+Author Information (Justin Zook, NIST, jzook@nist.gov)
+
+	Principal Investigator: Justin Zook
+	Dataset Contact(s): Justin Zook
+
+Date of data collection: 20190101-20200218
+
+----------------------
+Stratification Summary
+----------------------
+
+Union BED files are from the Global Alliance for Genomics and Health (GA4GH) Benchmarking Team and the Genome in a Bottle Consortium.
+
+These files are developed by merging the more granular difficult regions bed files in the subdirectories. These files can be used as standard resource of BED files for use with GA4GH benchmarking tools such as hap.py to stratify true positive, false positive, and false negative variant calls into whether they are in or not in different general types of difficult regions or in any type of difficult region or complex variant. For example, performance can be measure in just the "easy" regions of the genome.
+
+
+--------------------------
+SHARING/ACCESS INFORMATION
+-------------------------- 
+
+Licenses/restrictions placed on the data, or limitations of reuse: CC0
+
+Recommended citation for the data: 
+	Krusche, P., Trigg, L., Boutros, P.C. et al. 
+	Best practices for benchmarking germline small-variant calls in human genomes. 
+	Nat Biotechnol 37, 555–560 (2019). https://doi.org/10.1038/s41587-019-0054-x
+
+Links to other publicly accessible locations of the data:
+
+GIAB FTP URL: ftp://ftp-trace.ncbi.nlm.nih.gov/ReferenceSamples/giab/release/genome-stratifications/v2.0/
+- Individual stratification BED files
+- stratification README
+- .tsv for benchmarking with hap.py
+- MD5 checksums
+
+GitHub URL:  https://github.com/genome-in-a-bottle/genome-stratifications/
+- stratification README
+- scripts used to generate and evaluate stratification BED files
+- .tsv for benchmarking with hap.py
+- MD5 checksums
+
+Data.nist.gov DOI: https://doi.org/10.18434/M32190
+- Individual stratification BED files
+- stratification README
+- scripts used to generate and evaluate stratification BED files
+- .tsv for benchmarking with hap.py
+- MD5 checksums
+
+--------------------
+DATA & FILE OVERVIEW
+--------------------
+
+File descriptions:
+- GRCh38_alldifficultregions.bed.gz: union of all tandem repeats, all homopolymers >6bp, all imperfect homopolymers >10bp, all difficult to map regions, all segmental duplications, GC <25% or >65%, "Bad Promoters", and "OtherDifficultregions"
+- GRCh38_notinalldifficultregions.bed.gz: Complement of GRCh38_alldifficultregions.bed.gz (i.e., "easy" regions)
+- GRCh38_HG00*_alldifficultregions.bed.gz: union of GRCh38_alldifficultregions.bed.gz with genome-specific complex variants, SVs, and CNVs
+- GRCh38_alllowmapandsegdupregions.bed.gz: union of all difficult to map regions and all segmental duplications
+- GRCh38_notinalllowmapandsegdupregions.bed.gz: Complement of GRCh38_alllowmapandsegdupregions.bed.gz (i.e, not in a difficult to map or segmental duplication region)
+
+File List:
+Following file generation output files from scripts were renamed using a common convention. Below is a crosswalk of the output filename from the file generation scripts followed by the renamed filename in v2.0 release.
+
+GRCh38_alldifficultregions.bed.gz	GRCh38_alldifficultregions.bed.gz
+GRCh38_alllowmapandsegdupregions.bed.gz	GRCh38_alllowmapandsegdupregions.bed.gz
+GRCh38_notinalldifficultregions.bed.gz	GRCh38_notinalldifficultregions.bed.gz
+GRCh38_notinalllowmapandsegdupregions.bed.gz	GRCh38_notinalllowmapandsegdupregions.bed.gz
+
+--------------------------
+METHODOLOGICAL INFORMATION
+--------------------------
+
+Methods for processing the data: Files generated using bedtools multiIntersectBed and mergeBed in Merge_difficult_regions_GRCh38.sh
+
+Stratification BED(s) were post processed to remove reference Ns, specifically gaps and pseudoautosomal Y regions. The BEDs are merged and sorted and only contain chromosomes 1-22, X and Y. These are a 3-field BED (chromosome, start, end) that contains a header.  Post processing scripts can be found in "Prepare Stratification BEDs for GitHub.ipynb"
+
+Dependencies: 
+
+Software- or Instrument-specific information needed to interpret the data, including software and hardware version numbers: bedtools
+
+
+Describe any quality-assurance procedures performed on the data:
+Coverage comparison between GRCh37 and GRCh38 BED files was performed for each chromosome using R. We confirmed coverage between the BEDs were as expected.
+
+
+--------------------------
+DATA-SPECIFIC INFORMATION 
+--------------------------
+
+File structure:
+All stratification files are standard 3-field BED files (chromosome, start, end) with header. 
+
+File naming convention: 
+GRCh38_[type of difficult region].bed.gz
+"not_in" denotes it is the complement of the difficult region(s) that follow
+
+
+

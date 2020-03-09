@@ -1,0 +1,196 @@
+---
+title: "Generate GRCh37 refcoding bed"
+author: "Nate Olson"
+date: '`r Sys.Date()`'
+output:
+  bookdown::pdf_document2:
+    toc: FALSE
+---
+
+# Summary
+Generating a functional GRCh37 region stratification bed files for use in
+variant benchmarking.
+
+# Loading packages and defining variables
+```{r message = FALSE}
+library(tidyverse)
+ftbl_path <- paste0("ftp://ftp.ncbi.nlm.nih.gov/genomes/refseq",
+                    "/vertebrate_mammalian/Homo_sapiens/",
+                    "all_assembly_versions/GCF_000001405.25_GRCh37.p13",
+                    "/GCF_000001405.25_GRCh37.p13_feature_table.txt.gz")
+gff_path <- paste0("ftp://ftp.ncbi.nlm.nih.gov/genomes/refseq",
+                  "/vertebrate_mammalian/Homo_sapiens/",
+                  "all_assembly_versions/GCF_000001405.25_GRCh37.p13",
+                  "/GCF_000001405.25_GRCh37.p13_genomic.gff.gz")
+faidx_path <- paste0("ftp://ftp-trace.ncbi.nih.gov/1000genomes/",
+                  "ftp/technical/reference/",
+                  "phase2_reference_assembly_sequence/hs37d5.fa.gz.fai")
+```
+
+# Extracting CDS from RefSeq GFF
+
+## Getting Chromosome Assessions
+Using feature table to extract chromosome assessions.
+Feature table downloaded from `r ftbl_path`.
+
+```{r}
+ftbl_md5 <- "c0587443810e3d62da505fb653c28dd3"
+
+ftbl_file <- "GCF_000001405.25_GRCh37.p13_feature_table.txt.gz"
+if (!file.exists(ftbl_file)) {
+  download.file(url = ftbl_path, destfile = ftbl_file)
+
+  ## MD5 check
+  dwn_md5 <- tools::md5sum(ftbl_file)
+
+  if(ftbl_md5 != dwn_md5){
+    warning("MD5 for downloaded feature table does not match expected MD5")
+  }
+}
+
+## defining column types and names
+ftbl_col_names <- read_lines(ftbl_file, n_max = 1) %>%
+  str_split(pattern = "\t") %>% unlist()
+ftbl_col_types <- "cccccccddcclcccdlddc"
+
+feature_table <- read_tsv(ftbl_file, comment = "#",
+                          col_names = ftbl_col_names,
+                          col_types = ftbl_col_types)
+
+chrom_accn_df <- feature_table %>%
+  dplyr::select(chromosome, genomic_accession, assembly_unit, seq_type) %>%
+  distinct()
+```
+
+
+## Downloading and Parsing GFF File
+Extracting RefSeq CDS from GFF file.
+GFF file downloaded from `r gff_path`.
+
+```{r}
+gff_md5 <- "e84f4e0102b6c4f4cc0035b8abf1038f"
+
+gff_file <- "GCF_000001405.25_GRCh37.p13_genomic.gff.gz"
+if (!file.exists(gff_file)) {
+  download.file(url = gff_path, destfile = gff_file)
+
+  ## MD5 check
+  dwn_md5 <- tools::md5sum(gff_file)
+
+  if(gff_md5 != dwn_md5){
+    warning("MD5 for downloaded feature table does not match expected MD5")
+  }
+}
+
+## defining column types and names
+gff_table <- read_tsv(gff_file, col_names = c("seqid", "source", "type", "start", "end",
+                              "score", "strand", "phase", "attributes"),
+                comment = "#")
+
+## Exon table with only RefSeq entries
+exon_table <- gff_table %>%
+  filter(type == "CDS",
+         grepl("RefSeq", source)) %>%
+  rename(genomic_accession = seqid) %>%
+  left_join(chrom_accn_df)
+
+## Extracting CDS for chromosomes and converting to 3 column table.
+exon_table_3col <- exon_table %>%
+    filter(chromosome %in% c(1:22, "X", "Y", "MT"),
+           seq_type %in% c("chromosome","mitochondrion"),
+           assembly_unit %in% c("Primary Assembly", "non-nuclear"))%>%
+    select(chromosome, start, end) %>%
+    ## Sorting table by chromosome and feature start position
+    arrange(chromosome, start) %>%
+    mutate(chrom = paste0("chr", chromosome)) %>%
+    select(chrom, start, end) %>%
+  distinct()
+
+## Write to table as a bed file
+tmp_bed <- tempfile(fileext = ".bed")
+write_tsv(exon_table_3col, tmp_bed, col_names = FALSE)
+```
+
+# Preparing Stratification Files
+Generating bed file with merged overlapping CDS regions as well as notin bed.
+See mappability documentation for how GRCh38 genome bed file was generated.
+
+```{r}
+merged_bed_file <- "GRCh37_refseq_cds_merged.bed"
+system2("bedtools", args = c("merge", "-i", tmp_bed),
+        stdout = merged_bed_file)
+
+## Generating genome bed for subtractBed
+faidx_file <- "hs37d5.fa.gz.fai"
+faidx_md5 <- "bb77e60e9a492fd0172e2b11e6c16afd"
+genome_bed_file <- "human.hg19.chroms.only.genome.bed"
+
+if (!file.exists(faidx_file)) {
+  download.file(url = faidx_path, destfile = faidx_file)
+
+  ## MD5 check
+  dwn_md5 <- tools::md5sum(faidx_file)
+
+  if(faidx_md5 != dwn_md5){
+   warning("MD5 for downloaded feature table does not match expected MD5")
+  }
+}
+
+
+faidx_df <- read_tsv(faidx_file, col_names = c("CHROM","SIZE","X1","X2","X3")) %>% 
+  filter(CHROM %in% c(1:22,"X","Y")) %>% 
+  mutate(CHROM =paste0("chr", CHROM)) %>% 
+  mutate(START = 1) %>% 
+  select(CHROM, START, SIZE)
+
+write_tsv(faidx_df, path = genome_bed_file, col_names = FALSE)
+
+
+## Generating not-in bed
+notin_merged_bed_file <- "notin_GRCh37_refseq_cds_merged.bed"
+system2("subtractBed", args = c("-a", genome_bed_file, "-b", merged_bed_file),
+        stdout = notin_merged_bed_file)
+
+## Compressing stratificaiton beds
+system2("bgzip", merged_bed_file)
+system2("bgzip", notin_merged_bed_file)
+```
+
+# File Sanity Checks
+
+```{r}
+merged_bed <- read_tsv(paste0(merged_bed_file, ".gz"),
+                       col_names = c("chrom","start","end"))
+total_cds <- sum(merged_bed$end - merged_bed$start)
+
+notin_merged_bed <- read_tsv(paste0(notin_merged_bed_file, ".gz"),
+                       col_names = c("chrom","start","end"))
+notin_total_cds <- sum(notin_merged_bed$end - notin_merged_bed$start)
+```
+
+
+Number of bases in merged `r format(total_cds, big.mark = ",")`.
+Number of bases not-in merged `r format(notin_total_cds, big.mark = ",")`.
+Total bases (in + not-in) `r format(total_cds + notin_total_cds, big.mark = ",")`.
+
+# System Information
+
+```{r}
+s_info <- devtools::session_info()
+print(s_info$platform)
+s_info$packages %>%
+  filter(attached) %>%
+  dplyr::select(package, loadedversion, source) %>%
+      knitr::kable()
+```
+
+## Software Versions
+__BEDtools__
+```{r}
+system("bedtools --version",intern = TRUE)
+```
+
+__bgzip__
+```{r}
+system("bgzip --version",intern = TRUE)
+```

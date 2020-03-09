@@ -1,0 +1,125 @@
+This GRCh37 GC Content README.txt file was updated (formatting) on 20200224 by Jennifer McDaniel
+
+-------------------
+GENERAL INFORMATION
+-------------------
+
+Title of Dataset: GRCh37 GC Content Stratification BED file
+
+Author Information (Jennifer McDaniel, NIST, jennifer.mcdaniel@nist.gov)
+
+	Principal Investigator: Justin Zook (jzook@nist.gov)
+	Dataset Contact(s): Justin Zook
+
+Date of data collection : 20150101-20200218
+
+----------------------
+Stratification Summary
+----------------------
+
+These GRCh37 GC Content BED files are from the Global Alliance for Genomics and Health (GA4GH) Benchmarking Team and the Genome in a Bottle Consortium.
+
+These files are intended as standard resource of BED files for use in stratifying true positive, false positive, and false negative variant calls into different ranges of GC content. These files can be used as standard resource of BED files for use with GA4GH benchmarking tools such as hap.py to stratify.
+
+--------------------------
+SHARING/ACCESS INFORMATION
+-------------------------- 
+
+Licenses/restrictions placed on the data, or limitations of reuse: CC0
+
+Recommended citation for the data: 
+	Krusche, P., Trigg, L., Boutros, P.C. et al. 
+	Best practices for benchmarking germline small-variant calls in human genomes. 
+	Nat Biotechnol 37, 555–560 (2019). https://doi.org/10.1038/s41587-019-0054-x
+
+
+Links to other publicly accessible locations of the data: 
+
+GIAB FTP URL: ftp://ftp-trace.ncbi.nlm.nih.gov/ReferenceSamples/giab/release/genome-stratifications/v2.0/
+- Individual stratification BED files
+- stratification README
+- .tsv for benchmarking with hap.py
+- MD5 checksums
+
+GitHub URL:  https://github.com/genome-in-a-bottle/genome-stratifications/
+- stratification README
+- scripts used to generate and evaluate stratification BED files
+- .tsv for benchmarking with hap.py
+- MD5 checksums
+
+Data.nist.gov DOI: https://doi.org/10.18434/M32190
+- Individual stratification BED files
+- stratification README
+- scripts used to generate and evaluate stratification BED files
+- .tsv for benchmarking with hap.py
+- MD5 checksums
+
+--------------------
+DATA & FILE OVERVIEW
+--------------------
+
+File list:
+
+Following file generation output files from scripts were renamed using a common convention. Below is a crosswalk of the output filename from the file generation scripts followed by the renamed filename in v2.0 release.
+
+human_g1k_v37_l100_gc15_slop50.bed.gz	GRCh37_gc15_slop50.bed.gz
+human_g1k_v37_l100_gc15to20_slop50.bed.gz	GRCh37_gc15to20_slop50.bed.gz
+human_g1k_v37_l100_gc20to25_slop50.bed.gz	GRCh37_gc20to25_slop50.bed.gz
+human_g1k_v37_l100_gc25to30_slop50.bed.gz	GRCh37_gc25to30_slop50.bed.gz
+human_g1k_v37_l100_gc30to55_slop50.bed.gz	GRCh37_gc30to55_slop50.bed.gz
+human_g1k_v37_l100_gc55to60_slop50.bed.gz	GRCh37_gc55to60_slop50.bed.gz
+human_g1k_v37_l100_gc60to65_slop50.bed.gz	GRCh37_gc60to65_slop50.bed.gz
+human_g1k_v37_l100_gc65to70_slop50.bed.gz	GRCh37_gc65to70_slop50.bed.gz
+human_g1k_v37_l100_gc70to75_slop50.bed.gz	GRCh37_gc70to75_slop50.bed.gz
+human_g1k_v37_l100_gc75to80_slop50.bed.gz	GRCh37_gc75to80_slop50.bed.gz
+human_g1k_v37_l100_gc80to85_slop50.bed.gz	GRCh37_gc80to85_slop50.bed.gz
+human_g1k_v37_l100_gc85_slop50.bed.gz	GRCh37_gc85_slop50.bed.gz
+human_g1k_v37_l100_gclt25orgt65_slop50.bed.gz	GRCh37_gclt25orgt65_slop50.bed.gz
+human_g1k_v37_l100_gclt30orgt55_slop50.bed.gz	GRCh37_gclt30orgt55_slop50.bed.gz
+
+--------------------------
+METHODOLOGICAL INFORMATION
+--------------------------
+
+Description of methods used to generate :
+
+These files were created by Justin Zook at the National Institute of Standards and Technology based on discussions in the GA4GH Benchmarking Team using Heng Li’s seqtk algorithm (https://github.com/lh3/seqtk; version 5e1e8dbd506ea1ff8c77d468a1f27b8e8f73eac0 downloaded 3/30/15).  This identifies >=x bp regions with >y% or <y% GC. The last column in the output BED gives how many G/C bases in each identified region. This algorithm automatically seeks the boundaries of high-GC regions.  As Heng describes in (https://groups.google.com/d/msgid/ga4gh-dwg-benchmarking/CAPipXk%2B4PCKE-AfxuKw5bLtJC0MgoamDiyE-bcJNUJCXvtZX6A%40mail.gmail.com): “For example, we give a score s(C)=s(G)=1 and s(A)=s(T)=-2. Let f(i) be the accumulative score at chr position i, which is computed by f(i)=f(i-1)+s(i) if f(i-1)+s(i) is positive; or zero otherwise. We move forwardly to find local maxima of f(i). These are the right boundaries of a high-GC regions. We then move backwardly from each local maximum to find the left boundaries. Under this scoring, identified segments must have a %GC above 2/(1+2)=67%. Phred and bwa trimming are both based on a similar idea.”   To generate these files, we used the GRCh37 fasta from 1000genomes.org without decoy sequences (human_g1k_v37.fasta). 
+
+The process used to generate these regions was:
+1.  First generate regions with <15, 20, 25, and 30% GC and >55, 60, 65, 70, 75, 80, and 85 % GC
+2.  Expand by 50bp on each side to get "200 bp regions in which the middle 100bp contains <x% or >x% GC", based on doi:10.1186/gb-2013-14-5-r51
+3.  Subtract more stringent bed from less stringent bed to get GC content ranges
+4.  Everything else goes in 30to65 bed file for moderate GC (this range was chosen based on where coverage starts decreasing or error rates start increasing for any technology in doi:10.1186/gb-2013-14-5-r51
+5.  Note that after adding 50bp slop, 272336 bp overlap between gc30 and gc65, or 0.07% of gc30 and 0.5% of gc65, so the bed files with different GC ranges are almost exclusive of each other, but not completely
+
+We chose to stratify regions with <30% or >55% GC because these regions had decreased coverage or higher error rates for at least one of the technologies in doi:10.1186/gb-2013-14-5-r51, and we added 55-60 and 60-65 because we found increased error rates in these tranches in exploratory work.
+
+The shell script used to generate these was seqtk_gc.sh, and used the seqtk version described above along with BEDTools-Version-2.16.2.
+
+Post Processing of all files:
+Stratification BED(s) were post processed to remove reference Ns, specifically gaps and pseudoautosomal Y regions. The BEDs are merged and sorted and only contain chromosomes 1-22, X and Y. These are a 3-field BED (chromosome, start, end) that contains a header.  Post processing scripts can be found in "Prepare Stratification BEDs for GitHub.ipynb" 
+
+Dependencies: 
+GRCh37 reference genome from 1000genomes.org without decoy sequences (human_g1k_v37.fasta)
+
+Software- or Instrument-specific information needed to interpret the data, including software and hardware version numbers: 
+seqtk (https://github.com/lh3/seqtk; version 5e1e8dbd506ea1ff8c77d468a1f27b8e8f73eac0 downloaded 3/30/15)
+BEDTools-Version-2.16.2
+
+Describe any quality-assurance procedures performed on the data: 
+Coverage comparison between GRCh37 and GRCh38 BED files was performed for each chromosome using R. We confirmed coverage between the BEDs were as expected.
+
+People involved with sample collection, processing, analysis and/or submission:
+Heng Li
+
+--------------------------
+DATA-SPECIFIC INFORMATION 
+--------------------------
+
+File structure: 
+All stratification files are standard 3-field BED files (chromosome, start, end) with header. 
+
+File naming convention: 
+GRCh37_100 bp region_GC range_slopadded.bed.gz
+
+
