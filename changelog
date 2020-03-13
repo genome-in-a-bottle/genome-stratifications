@@ -1,0 +1,16 @@
+# V2.0
+Major enhancements:  
+
+- Bed files for GRCh37 as well as GRCh38  
+- Improved coverage of low complexity regions  
+- Merged files covering all difficult regions as well as bed files for relatively easy regions  
+- Additional difficult regions like the MHC, VDJ, and errors in the GRCh37 reference  
+- Genome-specific files for complex variants and SVs in HG002 used in our v4.1 small variant benchmark  
+
+The Bed files and tsv files for use with hap.py when doing benchmarking are at 
+ftp://ftp-trace.ncbi.nlm.nih.gov/ReferenceSamples/giab/release/genome-stratifications/v2.0/. 
+An archived version of the code and stratifications is available at https://doi.org/10.18434/M32190 (Which will be active soon).
+
+# V1.0
+- Initial set of benchmark stratifications for GRCh37 developed by the GA4GH benchmarking team (https://doi.org/10.1038/s41587-019-0054-x)
+ .
