@@ -1,80 +1,157 @@
-# genome-stratifications
+-------------------
+INTRODUCTION
+-------------------
 
-This repository contains code used to generate the GIAB v2.0 stratification BED files and associated documentation. 
-These v2.0 stratification BED files from the Global Alliance for Genomics and 
-Health (GA4GH) Benchmarking Team and the Genome in a Bottle Consortium are 
-intended as standard resource of BED files for use in stratifying true positive, 
-false positive, and false negative variant calls.
+This repository contains the files used for generating and evaluating the v3.0 stratifications.  The stratification files were developed with the Global Alliance for Genomic Health (GA4GH) Benchmarking Team, the Genome in a Bottle Consortium and the Telomere-to-Telomere Consortium ([T2T Consortium](https://sites.google.com/ucsc.edu/t2tworkinggroup)).   They are intended as a standard resource of BED files for use in stratifying true positive, false positive and false negative variant calls in challenging and targeted regions of the the genome. 
 
-These files can be used as standard resource of BED files for use with GA4GH 
-benchmarking tools such as hap.py to stratify.
+These files can be used as a standard resource of BED files for use with GA4GH benchmark tools such as [hap.py](https://github.com/Illumina/hap.py).
 
+*NOTE: Stratification BED files are only accessible on the [GIAB FTP site](https://ftp-trace.ncbi.nlm.nih.gov/ReferenceSamples/giab/release/genome-stratifications/) and [data.nist.gov](https://doi.org/10.18434/mds2-2499).*
+ 
 -------------------
 GENERAL INFORMATION
 -------------------
-
 Author Information
+- Principal Investigator: Justin Zook, NIST, jzook@nist.gov
+- Nate Olson, NIST, nathanael.olson@nist.gov
+- Justin Wagner, NIST, justin.wagner@nist.gov
+- Jennifer McDaniel, NIST, jennifer.mcdaniel@nist.gov
 
-- Principal Investigator: Justin Zook (jzook@nist.gov)
-- Nate Olson (nathanael.olson@nist.gov) 
-- Justin Wagner (justin.wagner@nist.gov) 	
-- Jennifer McDaniel (Jennifer.mcdaniel@nist.gov) 
-
-Date of data collection : 2015/01/01 - 2020/02/18
-
+Date of data collection: 2015-01-01 to 2021-10-22
 
 --------------------------
 SHARING/ACCESS INFORMATION
 -------------------------- 
 
-Licenses/restrictions placed on the data, or limitations of reuse: CC0
+Licenses/restrictions placed on the data, or limitations of reuse:
+Publicly released data are freely available for reuse without embargo.
 
-Recommended citation: 
+Citations for stratifications are located in the associated READMEs.
+
+If stratifications were used in benchmarking with GA4GH/GIAB best practices or hap.py please reference:
 
 	Krusche, P., Trigg, L., Boutros, P.C. et al. 
 	Best practices for benchmarking germline small-variant calls in human genomes. 
 	Nat Biotechnol 37, 555–560 (2019). https://doi.org/10.1038/s41587-019-0054-x
 
+#### Links to publicly accessible locations of the data:
 
-Links to other publicly accessible locations of the data: 
-
-GIAB FTP URL: ftp://ftp-trace.ncbi.nlm.nih.gov/ReferenceSamples/giab/release/genome-stratifications/v2.0/
-- Individual stratification BED files
+[GIAB FTP URL](https://ftp://ftp-trace.ncbi.nlm.nih.gov/ReferenceSamples/giab/release/genome-stratifications/)
+- Individual stratification BED files as well as zipped directories (tar.gz) of files
 - stratification README
-- .tsv for benchmarking with hap.py
+- .tsvs for benchmarking with hap.py
 - MD5 checksums
 
-GitHub URL:  https://github.com/genome-in-a-bottle/genome-stratifications/
+[GitHub URL](https://github.com/genome-in-a-bottle/genome-stratifications/)
+- stratification README
+- scripts used to generate and evaluate stratification BED files
+- .tsvs for benchmarking with hap.py
+- MD5 checksums
+
+[Data.nist.gov](https://doi.org/10.18434/mds2-2499)
+- Zipped directories (tar.gz) of stratification BED files
 - stratification README
 - scripts used to generate and evaluate stratification BED files
 - .tsv for benchmarking with hap.py
 - MD5 checksums
 
-Data.nist.gov DOI: https://doi.org/10.18434/M32190
-- Individual stratification BED files
-- stratification README
-- scripts used to generate and evaluate stratification BED files
-- .tsv for benchmarking with hap.py
-- MD5 checksums
+----------------------
+GitHub FILE OVERVIEW
+----------------------
+*NOTE: The GitHub repository does not contain any stratification region files (bed.gz), please see data.nist.gov or GIAB FTP site for stratification files.* 
+
+**`GRCh3X/`**\
+Subdirectories contain associated READMEs along with scripts and notebooks used to generate the various stratifications. Provided files are grouped by reference and stratification type. 
+A file with md5 checksums, **`v3.0-stratifications-GRCh3X-md5s.txt`**, is also provided.  These directories also contain .tsv files for use when benchmarking with hap.py. The following .tsv files provide paths to stratifications relative to the reference directory:
+
+-  **`v3.0-GRCh3X-all-stratifications.tsv`**\
+The all tsv contains all stratifications, including different repeat sizes and genome-specific regions that are difficult due to challenging variants in each GIAB sample
+- **`v3.0-GRCh3X-stratifications-all-except-genome-specific-stratifications.tsv`**\
+The all-expect-genome-specific tsv contains all stratifications that are difficult due to challenging variants but excludes Genome Specific stratifications.
+- **`v3.0-GRCh3X-CMRG-stratifications.tsv`**\
+The CMRG tsv contains a simplified set of stratifications that can be used when benchmarking against the GIAB CMRG v1.00 small variant benchmark. This contains only higher level stratifications.
+
+- **`v3.0-GRCh3X-v4.2.1-stratifications.tsv`**\
+The v4.2.1 tsv contains a simplified set of stratifications that can be used when benchmarking against the whole genome small variant benchmarks such as GIAB v4.2.1. This contains only higher level stratifications.
+
+**`CHANGELOG`**\
+Contains revisions, removals and additions between versions of stratification releases.
+
+**`post-processing/`**\
+Stratification BED files were generated by different people using different methods as detailed in stratification-specific READMEs.  To ensure file consistency all BED files were post-processed.  This directory contains README, scripts, notebooks and dependency files used for post-processing. 
+
+**`validation/`**\
+Following post-processing, all stratifications were validated for chromosome coverage and stratification functionality in benchmarking.  This directory contains README, scripts, and dependency files used for validation. Output of coverage analysis can be found in `3.0-stratification_validation.html`.
+
+----------------------
+SUMMARY OF STRATIFICATIONS
+----------------------
+Stratifications can be binned into seven types: Low Complexity, Functional Technically Difficult, Genome Specific, Functional Regions, GC content, mappability, Other Difficult, Segmental Duplications, union and ancestry. General information for stratification types are provided below. Associated stratification READMEs provide more information on what the individual files cover and represent.
+
+**Low Complexity**\
+*GRCh37 (24 stratifications) and GRCh38 (24 stratifications)*\
+Regions with different types and sizes of low complexity sequence, e.g., homopolymers, STRs, VNTRs and other locally repetitive sequences.
+
+**Functional Technically Difficult**\
+*GRCh37 (3 stratifications) and GRCh38 (3 stratifications)*\
+Functional, or potentially functional, regions that are also likely to be technically difficult to sequences.
+
+**Genome Specific (GIAB benchmark v4.2.1)**\
+*GRCh37 (90 stratifications) and GRCh38 (90 stratifications)*\
+Difficult regions due to potentially difficult variation in a NIST/GIAB sample, including 1) regions containing putative compound heterozygous variants 2) small regions containing multiple phased variants, 3) regions with potential structural or copy number variation.
+
+**Functional Regions**\
+*GRCh37 (2 stratifications) and GRCh38 (2 stratifications)*\
+Regions to stratify variants inside and outside coding regions.
+
+**GC Content**\
+*GRCh37 (14 stratifications) and GRCh38 (14 stratifications)*\
+Regions with different ranges (%) of GC content.
+
+**Mappability**\
+*GRCh37 (4 stratifications) and GRCh38 (4 stratifications)*\
+Regions where short read mapping can be challenging.
+
+**Other Difficult**\
+*GRCh37 (11 stratifications) and GRCh38 (13 stratifications)*\
+Highly variable regions like the VDJ and MHC, near gaps in the reference or errors in the reference.
+
+**Segmental Duplications**\
+*GRCh37 (9 stratifications) and GRCh38 (9 stratifications)*\
+Regions with segmental duplications or regions with non-trivial self-chain alignments.
+
+
+**Union**\
+*GRCh37 (4 stratifications) and GRCh38 (4 stratifications)*\
+Regions with different general types of difficult regions or any type o difficult region or complex variant. For example, performance can be measured in just "easy" or "all difficult" regions of the genome.
+
+**Ancestry**\
+*GRCh38 only (6 stratifications)*\
+Regions with inferred patterns of local ancestry.
 
 --------------------------
 METHODOLOGICAL INFORMATION
 --------------------------
 
-Description of methods used to generate: 
-See sub-directory READMEs
+#### Description of methods used to generate the stratifications:
+Methods used to generate the various stratifications can be found in specific stratification type READMEs. 
 
-Methods for processing the data: 
-See sub-directory READMEs for specifics on file generation methodologies.
+#### Post Processing of all files:
+Post-processing for file consistency was performed and described in GitHub post-processing directory. Stratification BED(s) were post processed to remove reference Ns, specifically gaps and pseudoautosomal Y regions. The BEDs are merged and sorted and only contain chromosomes 1-22, X and Y. A file crosswalk is provided in the post-processing directory for use in correlating script file naming and files generated in post-processing.
 
-All v2.0 stratification BED files were post processed processed to remove 
-non 1-22, XY chromosomes, remove N regions (specifically gaps and PAR-Y), 
-sort and merge regions.  These post processed files were then renamed to create 
-the final files in the v2.0-stratification-BEDs directory.  The script for post 
-processing can be found in "Prepare Stratification BEDs for GitHub.ipynb"
+#### Quality-Assurance of all files:
+Coverage comparison between GRCh37 and GRCh38 BED files was performed, where applicable, for each chromosome using R. We confirmed coverage between the BEDs were as expected. Validation of chromosome coverage can be found in the GitHub validation directory. Benchmarking of a HiFi-DeepVariant callset was also performed using stratifications with hap.py.  Callset was benchmarked against the v4.2.1 GIAB benchmark set to ensure benchmarking statistics in these regions were as expected. 
 
-Quality-assurance procedures: 
-Post-processed stratification BED files were validated by chromosome to confirm 
-coverage between GRCh37 and GRCh38 was similar and that coverage did not exceed 
-that of the reference genome.
+--------------------------
+DATA-USE POLICY 
+--------------------------
 
+This data/work was created by employees of the National Institute of Standards and Technology (NIST), an agency of the Federal Government. Pursuant to title 17 United States Code Section 105, works of NIST employees are not subject to copyright protection in the United States.  This data/work may be subject to foreign copyright.
+
+The data/work is provided by NIST as a public service and is expressly provided “AS IS.” NIST MAKES NO WARRANTY OF ANY KIND, EXPRESS, IMPLIED OR STATUTORY, INCLUDING, WITHOUT LIMITATION, THE IMPLIED WARRANTY OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, NON-INFRINGEMENT AND DATA ACCURACY. NIST does not warrant or make any representations regarding the use of the data or the results thereof, including but not limited to the correctness, accuracy, reliability or usefulness of the data. NIST SHALL NOT BE LIABLE AND YOU HEREBY RELEASE NIST FROM LIABILITY FOR ANY INDIRECT, CONSEQUENTIAL, SPECIAL, OR INCIDENTAL DAMAGES (INCLUDING DAMAGES FOR LOSS OF BUSINESS PROFITS, BUSINESS INTERRUPTION, LOSS OF BUSINESS INFORMATION, AND THE LIKE), WHETHER ARISING IN TORT, CONTRACT, OR OTHERWISE, ARISING FROM OR RELATING TO THE DATA (OR THE USE OF OR INABILITY TO USE THIS DATA), EVEN IF NIST HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
+
+To the extent that NIST may hold copyright in countries other than the United States, you are hereby granted the non-exclusive irrevocable and unconditional right to print, publish, prepare derivative works and distribute the NIST data, in any medium, or authorize others to do so on your behalf, on a royalty-free basis throughout the world.
+
+You may improve, modify, and create derivative works of the data or any portion of the data, and you may copy and distribute such modifications or works. Modified works should carry a notice stating that you changed the data and should note the date and nature of any such change. Please explicitly acknowledge the National Institute of Standards and Technology as the source of the data:  Data citation recommendations are provided at https://www.nist.gov/open/license.
+
+Permission to use this data is contingent upon your acceptance of the terms of this agreement and upon your providing appropriate acknowledgments of NIST’s creation of the data/work.

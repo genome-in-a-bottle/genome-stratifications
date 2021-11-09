@@ -1,0 +1,6 @@
+name: vcflib
+channels:
+  - bioconda
+dependencies:
+  - vcflib=1.0.2
+  - samtools=1.12

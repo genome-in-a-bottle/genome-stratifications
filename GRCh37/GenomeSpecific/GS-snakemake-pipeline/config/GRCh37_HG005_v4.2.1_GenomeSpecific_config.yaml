@@ -1,0 +1,24 @@
+## GIAB genome
+giab_sample: "HG005"
+
+## reference information
+ref :
+    version : "GRCh37"
+    fasta_url : ftp.1000genomes.ebi.ac.uk/vol1/ftp/technical/reference/phase2_reference_assembly_sequence/hs37d5.fa.gz
+
+## benchmark information
+benchmark :
+    version : "v4.2.1"
+    vcf_gz : resources/benchmark/HG005_GRCh37_1_22_v4.2.1_benchmark_hifiasm_v11_phasetransfer.vcf.gz
+    vcf_gz_tbi : resources/benchmark/HG005_GRCh37_1_22_v4.2.1_benchmark_hifiasm_v11_phasetransfer.vcf.gz
+    
+## rule input dependency files
+input_files:
+    rule7 :
+        ["resources/input_files/GRCh37/sorted_HG005_GRCh37_mrcanavar_intersect_PacBio_HiFi_cnv_threshold_intersect_ONT_cnv_threshold.bed",
+        "resources/input_files/GRCh37/sorted_HG005_GRCh37_union_SVs_repeatexpanded_slop50_merge1000_expanded_150_percent.bed",
+        "resources/input_files/GRCh37/sorted_HG005_GRCh37_PacBio_HiFi_1000_window_size_ONT_1000_combined_elliptical_outlier_threshold.bed",
+        "resources/input_files/GRCh37/sorted_HG005_inversions_slop150_chr1_22.bed"]
+
+    rule9 : resources/input_files/GRCh37/GRCh37_alldifficultregions.bed.gz
+    rule10 : resources/input_files/GRCh37/human.b37.genome.bed

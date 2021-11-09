@@ -1,0 +1,26 @@
+## GIAB genome
+giab_sample: "HG003"
+
+## reference information
+ref:
+    version: "GRCh38"
+    fasta_url: ftp.ncbi.nlm.nih.gov/genomes/all/GCA/000/001/405/GCA_000001405.15_GRCh38/seqs_for_alignment_pipelines.ucsc_ids/GCA_000001405.15_GRCh38_no_alt_analysis_set.fna.gz
+
+## benchmark information
+benchmark:
+    version: "v4.2.1"
+    vcf_gz: resources/benchmark/HG003_GRCh38_1_22_v4.2.1_benchmark_before_PS_remove.vcf.gz
+    vcf_gz_tbi: resources/benchmark/HG003_GRCh38_1_22_v4.2.1_benchmark_before_PS_remove.vcf.gz.tbi
+
+## rule input dependency files
+input_files:
+    rule7 :
+        ["resources/input_files/GRCh38/sorted_GRCh38_HG003_mrcanavar_intersect_ccs_1000_window_size_cnv_threshold_intersect_ont_1000_window_size_cnv_threshold.bed",
+        "resources/input_files/GRCh38/GRCh38_HG002_expanded_150__Tier1plusTier2_v0.6.1.bed.gz",
+        "resources/input_files/GRCh38/sorted_GRCh38_union_HG003_CCS_15kb_20kb_merged_ONT_1000_window_size_combined_elliptical_outlier_threshold.bed",
+        "resources/input_files/GRCh38/GRCh38_HG002_GIABv4.1_CNV_gt2assemblycontigs_ONTCanu_ONTFlye_CCSCanu.bed.gz",
+        "resources/input_files/GRCh38/GRCh38_HG002_GIABv4.1_inversions_slop25percent.bed.gz",
+        "resources/input_files/GRCh38/GRCh38_HG002_Tier1plusTier2_v0.6.1.bed.gz",
+        "resources/input_files/GRCh38/sorted_pbsv_HG003_SequelII.GRCh38_gt49bp_slop50_repeatexpanded_slop25percent.bed"]
+    rule9 : resources/input_files/GRCh38/GRCh38_alldifficultregions.bed.gz
+    rule10: resources/input_files/GRCh38/human.b38.genome.bed

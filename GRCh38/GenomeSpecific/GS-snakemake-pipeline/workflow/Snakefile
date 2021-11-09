@@ -1,0 +1,468 @@
+## Import Dependencies
+from snakemake.utils import min_version
+from snakemake.remote.FTP import RemoteProvider as FTPRemoteProvider
+
+## File download
+FTP = FTPRemoteProvider()
+
+## set minimum verision of snakemake
+min_version("6.4.1")
+
+## Define configuration file with run specifics
+configfile : "config/config.yaml"
+config_file = "config/config.yaml"
+
+## define prefix for output file naming
+outfile_prefix = config["ref"]["version"] + "_" + config["giab_sample"] + "_" + config["benchmark"]["version"] + "_"
+outfile_path = "output/" + config["giab_sample"] + "/" + config["ref"]["version"] + "/" + config["benchmark"]["version"] + "/"
+
+################################################################################
+## Target outputs
+################################################################################
+rule all:
+    input:
+        "resources/references/" + config["ref"]["version"] + ".fa",
+        "resources/references/" + config["ref"]["version"] + ".fa.fai",
+        outfile_path + outfile_prefix + "geno2haplo10.vcf.gz",
+        outfile_path + outfile_prefix + "comphetsnp10bp_slop50.bed.gz",
+        outfile_path + outfile_prefix + "comphetindel10bp_slop50.bed.gz",
+        outfile_path + outfile_prefix + "complexindel10bp_slop50.bed.gz",
+        outfile_path + outfile_prefix + "snpswithin10bp_slop50.bed.gz",
+        outfile_path + outfile_prefix + "othercomplexwithin10bp_slop50.bed.gz",
+        outfile_path + outfile_prefix + "CNVsandSVs.bed.gz",
+        outfile_path + outfile_prefix + "complexandSVs.bed.gz",
+        outfile_path + outfile_prefix + "complexandSVs_alldifficultregions.bed.gz",
+        outfile_path + outfile_prefix + "notin_complexandSVs_alldifficult.bed.gz",
+        outfile_path + outfile_prefix + "GenomeSpecific_config.yaml",
+        outfile_path + outfile_prefix + "GenomeSpecific_report.html",
+        outfile_path + outfile_prefix + "input_md5s_geno2haplo10.txt",
+        outfile_path + outfile_prefix + "input_md5s_comphetsnp10bp.txt",
+        outfile_path + outfile_prefix + "input_md5s_comphetindel10bp.txt",
+        outfile_path + outfile_prefix + "input_md5s_complexindel10bp.txt",
+        outfile_path + outfile_prefix + "input_md5s_snpswithin10bp.txt",
+        outfile_path + outfile_prefix + "input_md5s_othercomplexwithin10bp.txt",
+        outfile_path + outfile_prefix + "input_md5s_CNVsandSVs.txt",
+        outfile_path + outfile_prefix + "input_md5s_complexandSVs.txt",
+        outfile_path + outfile_prefix + "input_md5s_complexandSVs_alldifficultregions.txt",
+        outfile_path + outfile_prefix + "input_md5s_cnotin_complexandSVs_alldifficult.txt",
+        outfile_path + outfile_prefix + "all_input_md5s.txt"
+
+################################################################################
+## Get and prepare reference and index
+################################################################################
+rule get_ref:
+    input:
+        FTP.remote(config["ref"]["fasta_url"])
+    output:
+        # temp("resources/references/" + config["ref"]["version"] + ".fa")
+        "resources/references/" + config["ref"]["version"] + ".fa"
+
+    shell: "gunzip -c {input} > {output}"
+
+rule index_ref:
+    input: "resources/references/" + config["ref"]["version"] + ".fa"
+    output:
+        # temp("resources/references/" + config["ref"]["version"] + ".fa.fai")
+        "resources/references/" + config["ref"]["version"] + ".fa.fai"
+    wrapper: "0.61.0/bio/samtools/faidx"
+
+
+################################################################################
+## 1) Find additional unphased complex variants and overlapping variants that
+##    vcflib ignores.
+################################################################################
+rule geno2haplo10:
+    input:
+        ref_fa = rules.get_ref.output,
+        ref_idx = rules.index_ref.output,
+        benchmark_vcf = config["benchmark"]["vcf_gz"],
+        benchmark_index = config["benchmark"]["vcf_gz_tbi"]
+    output:
+        geno2haplo10 = outfile_path + outfile_prefix + "geno2haplo10.vcf.gz",
+        input_md5 = outfile_path + outfile_prefix + "input_md5s_geno2haplo10.txt"
+    conda:
+        "envs/vcflib.yaml"
+    log:
+        outfile_path + outfile_prefix + "vcflib.log"
+    shell: """
+    (vcfgeno2haplo -w 10 -r {input.ref_fa} {input.benchmark_vcf} |\
+    bgzip -c > {output.geno2haplo10}) 2> {log}
+    echo "rule 1 - geno2haplo10 input file md5s" >> {output.input_md5}
+    md5 {input.ref_fa} {input.benchmark_vcf} >> {output.input_md5}
+    """
+
+################################################################################
+## 2) (Strat) Find compound hets with no length change (i.e., only compound
+##    hets where both alleles contain only SNPs or MNPs within 10bp)
+################################################################################
+rule comphetsnp10bp:
+    input:
+        #geno2haplo10 (rule 1 output)
+        rule1 = outfile_path + outfile_prefix + "geno2haplo10.vcf.gz"
+    output:
+        bed_gz = outfile_path + outfile_prefix + "comphetsnp10bp_slop50.bed.gz",
+        input_md5 = outfile_path + outfile_prefix + "input_md5s_comphetsnp10bp.txt"
+    conda:
+        "envs/bedtools.yaml"
+    log:
+        outfile_path + outfile_prefix + "mergeBed_comphetsnp10bp.log"
+    params:
+        ref = config["ref"]["version"]
+    shell: """
+        if [[ {params.ref} == "GRCh38" ]]
+            then
+                (gzcat {input.rule1} |\
+                grep '1/2\\|1|2\\|2|1\\|2/1' |\
+                grep -v '^#' |\
+                awk 'BEGIN {{FS = "\\t\|,"; OFS = "\\t"}} {{if (length($4)==length($5) && length($4)==length($6)) print $1,$2-50,$2+length($4)+50}}' |\
+                sed 's/^chr//;s/^X/23/' |\
+                sort -k1,1n -k2,2n |\
+                sed 's/^23/X/;s/^/chr/' |\
+                mergeBed -i stdin -d 50 |\
+                bgzip -c > {output.bed_gz}) 2> {log}
+                echo "GRCh38 shell script was used"
+                echo "rule 2 - comphetsnp10bp input file md5s" >> {output.input_md5}
+                md5 {input.rule1} >> {output.input_md5}
+            else
+                gzcat {input.rule1} |\
+                grep '1/2\\|1|2\\|2|1\\|2/1' |\
+                grep -v '^#' |\
+                awk 'BEGIN {{FS = "\\t\|,"; OFS = "\\t"}} {{if (length($4)==length($5) && length($4)==length($6)) print $1,$2-50,$2+length($4)+50}}' |\
+                sed 's/^X/23/' |\
+                sort -k1,1n -k2,2n |\
+                sed 's/^23/X/' |\
+                mergeBed -i stdin -d 50 |\
+                bgzip -c > {output.bed_gz}
+                echo "GRCh37 shell script was used"
+                echo "rule 2 - comphetsnp10bp input file md5s" >> {output.input_md5}
+                md5 {input.rule1} >> {output.input_md5}
+        fi
+        """
+        #supposedly fixed NameError issues w/ awk by escaping braces and backslashe by doubling them e.g. \-->\\ and {}-->{{}}
+
+###############################################################################
+# 3) (Strat) Find compound hets where at least 1 allele has a length change
+#    (i.e., only compound hets where at least one allele contains an
+#    indel within 10bp)
+###############################################################################
+rule comphetindel10bp:
+    input:
+        #geno2haplo10 (rule 1 output)
+        rule1 = outfile_path + outfile_prefix + "geno2haplo10.vcf.gz"
+    output:
+        bed_gz = outfile_path + outfile_prefix + "comphetindel10bp_slop50.bed.gz",
+        input_md5 = outfile_path + outfile_prefix + "input_md5s_comphetindel10bp.txt"
+    log:
+        outfile_path + outfile_prefix + "mergeBed_comphetindel10bp.log"
+    conda:
+        "envs/bedtools.yaml"
+    params:
+        ref = config["ref"]["version"]
+    shell: """
+        if [[ {params.ref} == "GRCh38" ]]
+        then
+            (gzcat {input.rule1} |\
+            grep '1/2\\|1|2\\|2|1\\|2/1' |\
+            grep -v '^#' |\
+            awk 'BEGIN {{FS = "\\t\|,"; OFS = "\\t"}} {{if (length($4)!=length($5) || length($4)!=length($6)) print $1,$2-50,$2+length($4)+50}}' |\
+            sed 's/^chr//;s/^X/23/' |\
+            sort -k1,1n -k2,2n |\
+            sed 's/^23/X/;s/^/chr/' |\
+            mergeBed -i stdin -d 50 |\
+            bgzip -c > {output.bed_gz}) 2> {log}
+            echo "rule 3 - comphetindel10bp input file md5s" >> {output.input_md5}
+            md5 {input.rule1} >> {output.input_md5}
+            echo "GRCh38 shell script was used"
+        else
+            (gzcat {input.rule1} |\
+            grep '1/2\\|1|2\\|2|1\\|2/1' |\
+            grep -v '^#' |\
+            awk 'BEGIN {{FS = "\\t\|,"; OFS = "\\t"}} {{if (length($4)!=length($5) || length($4)!=length($6)) print $1,$2-50,$2+length($4)+50}}' |\
+            sed 's/^X/23/' |\
+            sort -k1,1n -k2,2n |\
+            sed 's/^23/X/' |\
+            mergeBed -i stdin -d 50 |\
+            bgzip -c > {output.bed_gz}) 2> {log}
+            echo "rule 3 - comphetindel10bp input file md5s" >> {output.input_md5}
+            md5 {input.rule1} >> {output.input_md5}
+            echo "GRCh37 shell script was used"
+        fi
+    """
+
+################################################################################
+## 4) (Strat) Find complex variants that are not compound hets where there is a
+##    length change and it is not a simple insertion or deletion
+################################################################################
+rule complexindel10bp:
+    input:
+        #geno2haplo10 (rule 1 output)
+        rule1 = outfile_path + outfile_prefix + "geno2haplo10.vcf.gz"
+    output:
+        bed_gz = outfile_path + outfile_prefix + "complexindel10bp_slop50.bed.gz",
+        input_md5 = outfile_path + outfile_prefix + "input_md5s_complexindel10bp.txt"
+    log:
+        outfile_path + outfile_prefix + "mergeBed_complexindel10bp.log"
+    conda:
+        "envs/bedtools.yaml"
+    params:
+        ref = config["ref"]["version"]
+    shell: """
+        if [[ {params.ref} == "GRCh38" ]]
+        then
+            (gzcat {input.rule1} |\
+            grep -v '1/2\\|1|2\\|2|1\\|2/1' |\
+            grep -v '^#' |\
+            awk 'BEGIN {{FS = "\\t"; OFS = "\\t"}} {{if (length($4)!=length($5) && length($4)>1 && length($5)>1) print $1,$2-50,$2+length($4)+50}}' |\
+            sed 's/^chr//;s/^X/23/' |\
+            sort -k1,1n -k2,2n |\
+            sed 's/^23/X/;s/^/chr/' |\
+            mergeBed -i stdin -d 50 |\
+            bgzip -c > {output.bed_gz}) 2> {log}
+            echo "rule 4 - complexindel10bp input file md5s" >> {output.input_md5}
+            md5 {input.rule1} >> {output.input_md5}
+            echo "GRCh38 shell script was used"
+        else
+            (gzcat {input.rule1} |\
+            grep -v '1/2\\|1|2\\|2|1\\|2/1' |\
+            grep -v '^#' |\
+            awk 'BEGIN {{FS = "\\t"; OFS = "\\t"}} {{if (length($4)!=length($5) && length($4)>1 && length($5)>1) print $1,$2-50,$2+length($4)+50}}' |\
+            sed 's/^X/23/' |\
+            sort -k1,1n -k2,2n |\
+            sed 's/^23/X/' |\
+            mergeBed -i stdin -d 50 |\
+            bgzip -c > {output.bed_gz}) 2> {log}
+            echo "rule 4 - complexindel10bp input file md5s" >> {output.input_md5}
+            md5 {input.rule1} >> {output.input_md5}
+            echo "GRCh37 shell script was used"
+        fi
+    """
+
+################################################################################
+## 5) (Strat) Find SNPs within 10bp that are not compound hets
+################################################################################
+rule snpswithin10bp:
+    input:
+        #geno2haplo10 (rule 1 output)
+        rule1 = outfile_path + outfile_prefix + "geno2haplo10.vcf.gz"
+    output:
+        bed_gz = outfile_path + outfile_prefix + "snpswithin10bp_slop50.bed.gz",
+        input_md5 = outfile_path + outfile_prefix + "input_md5s_snpswithin10bp.txt"
+    log:
+        outfile_path + outfile_prefix + "mergeBed_snpswithin10bp.log"
+    conda:
+        "envs/bedtools.yaml"
+    params:
+        ref = config["ref"]["version"]
+
+    shell: """
+        if [[ {params.ref} == "GRCh38" ]]
+        then
+            (gzcat {input.rule1} |\
+            grep -v '^#\\|1/2\\|1|2\\|2|1\\|2/1' |\
+            grep -v '^#' |\
+            awk 'BEGIN {{FS = "\\t"; OFS = "\\t"}} {{if (length($4)==length($5) && length($4)>1 ) print $1,$2-50,$2+length($4)+50}}' |\
+            sed 's/^chr//;s/^X/23/' |\
+            sort -k1,1n -k2,2n |\
+            sed 's/^23/X/;s/^/chr/' |\
+            mergeBed -i stdin -d 50 |\
+            bgzip -c > {output.bed_gz}) 2> {log}
+            echo "rule 5 - snpswithin10bp input file md5s" >> {output.input_md5}
+            md5 {input.rule1} >> {output.input_md5}
+            echo "GRCh38 shell script was used"
+        else
+            (gzcat {input.rule1} |\
+            grep -v '^#\\|1/2\\|1|2\\|2|1\\|2/1' |\
+            grep -v '^#' |\
+            awk 'BEGIN {{FS = "\\t"; OFS = "\\t"}} {{if (length($4)==length($5) && length($4)>1 ) print $1,$2-50,$2+length($4)+50}}' |\
+            sed 's/^X/23/' |\
+            sort -k1,1n -k2,2n |\
+            sed 's/^23/X/' |\
+            mergeBed -i stdin -d 50 |\
+            bgzip -c > {output.bed_gz}) 2> {log}
+            echo "rule 5 - snpswithin10bp input file md5s" >> {output.input_md5}
+            md5 {input.rule1} >> {output.input_md5}
+            echo "GRCh37 shell script was used"
+        fi
+    """
+
+################################################################################
+## 6) (Strat) Find additional unphased complex variants and overlapping variants
+##    that vcflib ignores
+################################################################################
+rule othercomplexwithin10bp:
+    input:
+        #rules 2-5 output
+        rule2 = outfile_path + outfile_prefix + "comphetsnp10bp_slop50.bed.gz",
+        rule3 = outfile_path + outfile_prefix + "comphetindel10bp_slop50.bed.gz",
+        rule4 = outfile_path + outfile_prefix + "complexindel10bp_slop50.bed.gz",
+        rule5 = outfile_path + outfile_prefix + "snpswithin10bp_slop50.bed.gz",
+        benchmark_vcf = config["benchmark"]["vcf_gz"]
+    output:
+        bed_gz = outfile_path + outfile_prefix + "othercomplexwithin10bp_slop50.bed.gz",
+        input_md5 = outfile_path + outfile_prefix + "input_md5s_othercomplexwithin10bp.txt"
+    log:
+        outfile_path + outfile_prefix + "othercomplexwithin10bp.log"
+    conda:
+        "envs/bedtools.yaml"
+    shell: """
+    (gzcat {input.benchmark_vcf} |\
+    awk '{{FS = OFS = "\\t"}} {{ print $1,$2,$2+length($4)}}' |\
+    grep -v ^# |\
+    mergeBed -i stdin -d 10 -c 3 -o count |\
+    awk '{{FS = OFS = "\\t"}} {{ if($4>1) print $1,$2-50,$3+50}}' |\
+    mergeBed -i stdin |\
+    subtractbed -a stdin -b {input.rule3} |\
+    subtractBed -a stdin -b {input.rule2} |\
+    subtractBed -a stdin -b {input.rule4} |\
+    subtractBed -a stdin -b {input.rule5} |\
+    bgzip -c > {output.bed_gz}) 2>{log}
+    echo "rule 6 - othercomplexwithin10bp input file md5s" >> {output.input_md5}
+    md5 {input.rule2} {input.rule3} {input.rule4} {input.rule5} {input.benchmark_vcf}>> {output.input_md5}
+    """
+
+################################################################################
+## 7) (Strat) find union of CNVs and SVs
+##    Note: The output file of this rule is not benchmark-specific however for
+##    transparency, it will be regenerated and renamed with benchmark version
+################################################################################
+rule CNVsandSVs:
+    output:
+        bed_gz = outfile_path + outfile_prefix + "CNVsandSVs.bed.gz",
+        input_md5 = outfile_path + outfile_prefix + "input_md5s_CNVsandSVs.txt"
+    log:
+        outfile_path + outfile_prefix + "CNVsandSVs.log"
+    conda:
+        "envs/bedtools.yaml"
+    params:
+        file_list = " ".join(config["input_files"]["rule7"])
+    shell: """
+    (multiIntersectBed -i {params.file_list} |\
+    mergeBed -i stdin |\
+    bgzip -c > {output.bed_gz}) 2>{log}
+    echo "rule 7 - CNVsandSVs input file md5s" >> {output.input_md5}
+    md5 {params.file_list} >> {output.input_md5}
+    """
+
+################################################################################
+## 8) (Strat) find union of complex variants and SVs
+################################################################################
+rule complexandSVs:
+    input:
+        #rules 2-7 output
+        rule2 = outfile_path + outfile_prefix + "comphetsnp10bp_slop50.bed.gz",
+        rule3 = outfile_path + outfile_prefix + "comphetindel10bp_slop50.bed.gz",
+        rule4 = outfile_path + outfile_prefix + "complexindel10bp_slop50.bed.gz",
+        rule5 = outfile_path + outfile_prefix + "snpswithin10bp_slop50.bed.gz",
+        rule6 = outfile_path + outfile_prefix + "othercomplexwithin10bp_slop50.bed.gz",
+        rule7 = outfile_path + outfile_prefix + "CNVsandSVs.bed.gz"
+    output:
+        bed_gz = outfile_path + outfile_prefix + "complexandSVs.bed.gz",
+        input_md5 = outfile_path + outfile_prefix + "input_md5s_complexandSVs.txt"
+    log:
+        outfile_path + outfile_prefix + "complexandSVs.log"
+    conda:
+        "envs/bedtools.yaml"
+    shell: """
+    (multiIntersectBed -i {input.rule3} {input.rule2} {input.rule4} {input.rule5} {input.rule6} {input.rule7} |\
+    mergeBed -i stdin |\
+    bgzip -c > {output.bed_gz}) 2>{log}
+    echo "rule 8 - complexandSVs input file md5s" >> {output.input_md5}
+    md5 {input.rule2} {input.rule3} {input.rule4} {input.rule5} {input.rule6} {input.rule7} >> {output.input_md5}
+    """
+
+################################################################################
+## 9) (Strat) merge genomespecific and alldifficultregions
+################################################################################
+rule complexandSVs_alldifficultregions:
+    input:
+        #rule 8 output
+        rule8 = outfile_path + outfile_prefix + "complexandSVs.bed.gz",
+        all_diff = config["input_files"]["rule9"]
+    output:
+        bed_gz = outfile_path + outfile_prefix + "complexandSVs_alldifficultregions.bed.gz",
+        input_md5 = outfile_path + outfile_prefix + "input_md5s_complexandSVs_alldifficultregions.txt"
+    log:
+        outfile_path + outfile_prefix + "complexandSVs_alldifficultregions.log"
+    conda:
+        "envs/bedtools.yaml"
+    shell: """
+    (multiIntersectBed -i {input.all_diff} {input.rule8} |\
+    mergeBed -i stdin |\
+    bgzip -c > {output.bed_gz}) 2>{log}
+    echo "rule 9 - complexandSVs_alldifficultregions input file md5s" >> {output.input_md5}
+    md5 {input.rule8} {input.all_diff} >> {output.input_md5}
+    """
+
+################################################################################
+## 10) (Strat) find not in all difficult regions
+###############################################################################
+rule notin_complexandSVs_alldifficult:
+    input:
+        ref_bed = config["input_files"]["rule10"],
+        #rule 9 outputs
+        rule9 = outfile_path + outfile_prefix + "complexandSVs_alldifficultregions.bed.gz"
+    output:
+        bed_gz = outfile_path + outfile_prefix + "notin_complexandSVs_alldifficult.bed.gz",
+        input_md5 = outfile_path + outfile_prefix + "input_md5s_cnotin_complexandSVs_alldifficult.txt"
+    log:
+        outfile_path + outfile_prefix + "notin_complexandSVs_notinalldifficults.log"
+    conda:
+        "envs/bedtools.yaml"
+    shell: """
+    (subtractBed -a {input.ref_bed} -b {input.rule9} |\
+    bgzip -c > {output.bed_gz}) 2>{log}
+    echo "rule 10 - notin_complexandSVs_alldifficult input file md5s" >> {output.input_md5}
+    md5 {input.rule9} {input.ref_bed} >> {output.input_md5}
+    """
+
+################################################################################
+## Documentation rules to capture information on what was run and how
+################################################################################
+
+rule report_and_rm_empty_logs:
+# Generate snakemake.html report. Requires the use of --nolock option at
+# command line. Note: Input files are not used but rather forces report to be
+# the last rule run
+# This rule also removes empty logfiles which should be expected for the rules
+# in this snakefile if all work as expected.
+    input:
+        outfile_path + outfile_prefix + "notin_complexandSVs_alldifficult.bed.gz",
+        outfile_path + outfile_prefix + "all_input_md5s.txt"
+    output:
+        outfile_path + outfile_prefix + "GenomeSpecific_report.html"
+    params:
+        outpath = outfile_path,
+        logfile = "\"*.log\""
+    shell: """
+    snakemake --report {output}
+    find {params.outpath} -name {params.logfile} -empty -delete
+    """
+
+rule copy_config:
+# Rename and move config.yaml to output directory
+    input:
+        config_file
+    output:
+        outfile_path + outfile_prefix + "GenomeSpecific_config.yaml"
+    shell: "cp {input} {output}"
+
+rule input_md5s:
+# Combine all input md5s into single file for future reference. This will
+# then remove rule-derived input_md5.txt files
+    input:
+        rule1_md5 = outfile_path + outfile_prefix + "input_md5s_geno2haplo10.txt",
+        rule2_md5 = outfile_path + outfile_prefix + "input_md5s_comphetsnp10bp.txt",
+        rule3_md5 = outfile_path + outfile_prefix + "input_md5s_comphetindel10bp.txt",
+        rule4_md5 = outfile_path + outfile_prefix + "input_md5s_complexindel10bp.txt",
+        rule5_md5 = outfile_path + outfile_prefix + "input_md5s_snpswithin10bp.txt",
+        rule6_md5 = outfile_path + outfile_prefix + "input_md5s_othercomplexwithin10bp.txt",
+        rule7_md5 = outfile_path + outfile_prefix + "input_md5s_CNVsandSVs.txt",
+        rule8_md5 = outfile_path + outfile_prefix + "input_md5s_complexandSVs.txt",
+        rule9_md5 = outfile_path + outfile_prefix + "input_md5s_complexandSVs_alldifficultregions.txt",
+        rule10_md5 = outfile_path + outfile_prefix + "input_md5s_cnotin_complexandSVs_alldifficult.txt"
+    output:
+        input_md5s = outfile_path + outfile_prefix + "all_input_md5s.txt"
+    shell: """
+    cat {input.rule1_md5} {input.rule2_md5} {input.rule3_md5} {input.rule4_md5} {input.rule5_md5} {input.rule6_md5} {input.rule7_md5} {input.rule8_md5} {input.rule9_md5} {input.rule10_md5} > {output.input_md5s}
+    rm {input.rule1_md5} {input.rule2_md5} {input.rule3_md5} {input.rule4_md5} {input.rule5_md5} {input.rule6_md5} {input.rule7_md5} {input.rule8_md5} {input.rule9_md5} {input.rule10_md5}
+    """

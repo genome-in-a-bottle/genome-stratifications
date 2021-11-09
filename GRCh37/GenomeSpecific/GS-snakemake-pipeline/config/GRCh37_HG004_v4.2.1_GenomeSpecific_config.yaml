@@ -1,0 +1,26 @@
+## GIAB genome
+giab_sample: "HG004"
+
+## reference information
+ref:
+    version: "GRCh37"
+    fasta_url: ftp.1000genomes.ebi.ac.uk/vol1/ftp/technical/reference/phase2_reference_assembly_sequence/hs37d5.fa.gz
+
+## benchmark information
+benchmark:
+    version: "v4.2.1"
+    vcf_gz: resources/benchmark/HG004_GRCh37_1_22_v4.2.1_benchmark_before_PS_remove.vcf.gz
+    vcf_gz_tbi: resources/benchmark/HG004_GRCh37_1_22_v4.2.1_benchmark_before_PS_remove.vcf.gz.tbi
+
+## rule input dependency files
+input_files:
+    rule7 :
+        ["resources/input_files/GRCh37/sorted_HG004_GRCh37_mrcanavar_intersect_ccs_window_size_cnv_threshold_intersect_ont_window_size_cnv_threshold.bed",
+        "resources/input_files/GRCh37/GRCh37_HG002_expanded_150_Tier1plusTier2_v0.6.1.bed.gz",
+        "resources/input_files/GRCh37/sorted_GRCh37_union_HG004_CCS_15kb_20kb_merged_ONT_1000_window_size_combined_elliptical_outlier_threshold.bed",
+        "resources/input_files/GRCh37/GRCh37_HG002_GIABv4.1_CNV_gt2assemblycontigs_ONTCanu_ONTFlye_CCSCanu.bed.gz",
+        "resources/input_files/GRCh37/GRCh37_HG002_GIABv4.1_inversions_slop25percent.bed.gz",
+        "resources/input_files/GRCh37/GRCh37_HG002_Tier1plusTier2_v0.6.1.bed.gz",
+        "resources/input_files/GRCh37/sorted_pbsv_HG004_SequelII.GRCh37.pbsv_gt49bp_slop50_repeatexpanded_slop25percent.bed"]
+    rule9 : resources/input_files/GRCh37/GRCh37_alldifficultregions.bed.gz
+    rule10: resources/input_files/GRCh37/human.b37.genome.bed
