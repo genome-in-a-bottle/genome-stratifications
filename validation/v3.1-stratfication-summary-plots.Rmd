@@ -1,0 +1,103 @@
+---
+title: "v3.1-stratification-metrics-plots"
+author: "JMcDaniel"
+date: "7/6/2022"
+output: 
+  html_document:
+    code_folding: hide
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, fig.width=15, fig.height=20)
+```
+
+## Benchmarking Summary Plots
+These benchmarking summary plots were generated to evaluate v3.1 stratifications.  These data summarize benchmarking of HG002 Hifi Deep Variant callsets against HG2-HPRC-curr.20211005 draft benchmarks aligned to GRCh37, GRCh38 and CHM13v2.0 using the defrabb pipeline.  
+
+These data are plotted from metrics obtained from hap.py benchmaking output, `extended.csv`, and summarized with `v3.1_benchmarking_summary_metrics_for_all_stratification_evaluation.R`. Data for draft benchmarks and evaluations presented here are located on the BBD_human_genomics team Google Drive as follows:  
+[20220705_v0.008_HG002-HPRC-GRCh37](https://drive.google.com/drive/folders/1ZDgCefCQny8mDsiMFo_y2LWji_thmAk1?usp=sharing)  
+[20220705_v0.008_HG002-HPRC-GRCh38](https://drive.google.com/drive/folders/1Toi50ih_j46Im3xR5aMZr9OlmHRxvIZF?usp=sharing)  
+[20220705_v0.008_HG002-HPRC-CHM13v2.0](https://drive.google.com/drive/folders/1pbavG9y8l8Vm1KHXCJXoEnCudQAqn5RQ?usp=sharing)
+
+```{r, message=FALSE, warning=FALSE}
+library(tidyverse)
+library(readr)
+library(reshape2)
+library(plotly)
+
+setwd("~/Documents/GiaB/Benchmarking/Stratifications/v3.1_genome-stratifications/validation/evaluation-with-benchmarking")
+data <- read_csv("v3.1-strat-eval_benchmarking-summary-stats_070622.csv") %>% 
+  select(-c("X1")) %>%
+  select(c(Ref,
+           Subset,
+           SNP.Recall,
+           SNP.Precision,SNP.Frac_NA,
+           SNP.TRUTH.TP,
+           SNP.TRUTH.TP.het,
+           SNP.TRUTH.TP.homalt,
+           INDEL.Recall,
+           INDEL.Precision,
+           INDEL.Frac_NA,
+           INDEL.TRUTH.TP,
+           INDEL.TRUTH.TP.het,
+           INDEL.TRUTH.TP.homalt)) %>%
+  filter(Subset %in% c("AllAutosomes",
+                       "allTandemRepeats",
+                       "SimpleRepeat_diTR_11to50_slop5",
+                       "AllHomopolymers_gt6bp_imperfectgt10bp_slop5",
+                       "SimpleRepeat_homopolymer_7to11_slop5",
+                       "SimpleRepeat_homopolymer_gt20_slop5",
+                       "SimpleRepeat_imperfecthomopolgt10_slop5",
+                       "SimpleRepeat_imperfecthomopolgt20_slop5",
+                       "alldifficultregions",
+                       "alllowmapandsegdupregions",
+                       "chrX_PAR",
+                       "chrX_XTR",
+                       "chrY_XTR",
+                       "notinalldifficultregions",
+                       "notinAllHomopolymers_gt6bp_imperfectgt10bp_slop5",
+                       "notinAllTandemRepeatsandHomopolymers_slop5",
+                       "segdups",
+                       "SegDups")) %>%
+  mutate("-log10(FN_Rate_SNP)" = (-log10(1-SNP.Recall))) %>%
+  mutate("-log10(FP_Rate_SNP)" = (-log10(1-SNP.Precision))) %>%
+  mutate("-log10(FN_Rate_INDEL)" = (-log10(1-INDEL.Recall))) %>%
+  mutate("-log10(FP_Rate_INDEL)" = (-log10(1-INDEL.Precision)))  
+
+#log10-scale for TP/.het/.homalt
+data$SNP.TRUTH.TP = log10(data$SNP.TRUTH.TP)
+data$SNP.TRUTH.TP.het = log10(data$SNP.TRUTH.TP.het)
+data$SNP.TRUTH.TP.homalt = log10(data$SNP.TRUTH.TP.homalt)
+data$INDEL.TRUTH.TP = log10(data$INDEL.TRUTH.TP)
+data$INDEL.TRUTH.TP.het = log10(data$INDEL.TRUTH.TP.het)
+data$INDEL.TRUTH.TP.homalt = log10(data$INDEL.TRUTH.TP.homalt)
+
+#rename columns that underwent log10 transformation
+data <- data %>%
+  rename(c("log10(SNP.TRUTH.TP)" = SNP.TRUTH.TP,
+           "log10(SNP.TRUTH.TP.het)" = SNP.TRUTH.TP.het ,
+           "log10(SNP.TRUTH.TP.homalt)" = SNP.TRUTH.TP.homalt,
+           "log10(INDEL.TRUTH.TP)" = INDEL.TRUTH.TP,
+           "log10(INDEL.TRUTH.TP.het)" = INDEL.TRUTH.TP.het,
+           "log10(INDEL.TRUTH.TP.homalt)" = INDEL.TRUTH.TP.homalt))
+
+#fix naming for GRCh37/38 segdups to be consistent with CHM13
+data["Subset"][data["Subset"]=="segdups"] <- "SegDups"
+
+#transform data vertically for easier plotting
+melt <- melt(data, id = c("Ref", "Subset"))
+
+#Interactive plots with ALL stratifications
+base <- ggplot(melt, aes(Subset,value)) + geom_point(aes(colour = Ref, shape = Ref))
+fw <- base + facet_wrap(~variable, scales="free_y", ncol=3) + theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
+ggplotly(fw)
+```
+
+## Check for missing metrics
+Check data for missing, "NA", values and report which rows were not plotted. 
+
+```{r , message=FALSE, warning=FALSE}
+#to find rows with missing metrics values
+missing <- c(which(is.na(melt$value) ==TRUE))
+melt[missing,]
+```
