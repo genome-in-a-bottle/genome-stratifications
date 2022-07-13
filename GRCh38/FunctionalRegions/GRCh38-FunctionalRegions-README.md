@@ -4,13 +4,13 @@ This GRCh38-FunctionalRegions-README.md file was generated on 20200219 by Nate O
 GENERAL INFORMATION
 -------------------
 
-**Title of Dataset:**\
+**Title of Dataset:**  
 GRCh38 Functional Region Stratification BED files
 
-**Principal Investigator:**\
+**Principal Investigator:**  
 Justin Zook, NIST, jzook@nist.gov
 	
-**Dataset Contact(s):**\
+**Dataset Contact(s):**  
 Nate D. Olson, NIST, nolson@nist.gov
 
 ----------------------
@@ -33,7 +33,7 @@ Reference for stratifications:
 
 	Olson, N. et al.
 	precisionFDA Truth Challenge V2: Calling variants from short- and long-reads in difficult-to-map regions
-	BioRxiv (2021) https://doi.org/10.1101/2020.11.13.380741
+	Cell Genomics, 11 May 2022, Volume 2, Issue 5,  https://doi.org/10.1016/j.xgen.2022.100129
 
 If stratifications were used in benchmarking with GA4GH/GIAB best practices or hap.py please reference:
 
@@ -66,15 +66,15 @@ If stratifications were used in benchmarking with GA4GH/GIAB best practices or h
 DATA & FILE OVERVIEW
 --------------------
 #### File List:
-GRCh38_notinrefseq_cds.bed.gz\
+GRCh38_notinrefseq_cds.bed.gz  
 GRCh38_refseq_cds.bed.gz
 
 #### File Descriptions:
 
-- `GRCh3X_refseq_cds.bed.gz`\
+- `GRCh3X_refseq_cds.bed.gz`  
 Genomic regions within coding regions
 
-- `GRCh3X_notinrefseq_union_cds.bed.gz`\
+- `GRCh3X_notinrefseq_union_cds.bed.gz`  
 Genomic regions outside coding regions.
 
 --------------------------

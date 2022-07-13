@@ -4,15 +4,15 @@ This GRCh38-GenomeSpecific-README.md file was generated on 20211022 by Jennifer 
 GENERAL INFORMATION
 -------------------
 
-**Title of Dataset:**\
+**Title of Dataset:**  
 GRCh38 Genome Specific Stratification BED files
 
-**Principal Investigator:**\
+**Principal Investigator:**  
 Justin Zook, NIST, jzook@nist.gov
 	
-**Dataset Contact(s):**\
-Justin Zook, NIST, jzook@nist.gov\
-Justin Wagner, NIST, justin.wagner@nist.gov\
+**Dataset Contact(s):**  
+Justin Zook, NIST, jzook@nist.gov  
+Justin Wagner, NIST, justin.wagner@nist.gov  
 Jennifer McDaniel, NIST, jennifer.mcdaniel@nist.gov
 
 ----------------------
@@ -38,11 +38,11 @@ References for stratifications:
 
 	Olson, N. et al.
 	precisionFDA Truth Challenge V2: Calling variants from short- and long-reads in difficult-to-map regions
-	BioRxiv (2021) https://doi.org/10.1101/2020.11.13.380741
+	Cell Genomics, 11 May 2022, Volume 2, Issue 5,  https://doi.org/10.1016/j.xgen.2022.100129
 	
 	Wagner, J. et al.
 	Benchmarking challenging small variants with linked and long reads
-	BioRxiv (2021) https://doi.org/10.1101/2020.07.24.212712
+	Cell Genomics, 11 May 2022, Volume 2, Issue 5, https://doi.org/10.1016/j.xgen.2022.100128
 	
 If stratifications were used in benchmarking with GA4GH/GIAB best practices or hap.py please reference:
 
@@ -75,7 +75,7 @@ If stratifications were used in benchmarking with GA4GH/GIAB best practices or h
 DATA & FILE OVERVIEW
 --------------------
 #### File List:
-***HG001***\
+***HG001***  
 GRCh38_HG001_v4.2.1_CNV_CCSandONT_elliptical_outlier.bed.gz
 GRCh38_HG001_v4.2.1_CNV_mrcanavarIllumina_CCShighcov_ONThighcov_intersection.bed.gz
 GRCh38_HG001_v4.2.1_SV_pbsv_hifiasm_dipcall_svanalyzer_slop25percent.bed.gz
@@ -91,7 +91,7 @@ GRCh38_HG001_v4.2.1_complexandSVs.bed.gz
 GRCh38_HG001_v4.2.1_complexandSVs_alldifficultregions.bed.gz
 GRCh38_HG001_v4.2.1_notin_complexandSVs_alldifficultregions.bed.gz
 
-***HG002***\
+***HG002***  
 GRCh38_HG002_v4.2.1_CNV_CCSandONT_elliptical_outlier.bed.gz
 GRCh38_HG002_v4.2.1_CNV_mrcanavarIllumina_CCShighcov_ONThighcov_intersection.bed.gz
 GRCh38_HG002_v4.2.1_CNV_gt2assemblycontigs_ONTCanu_ONTFlye_CCSCanu.bed.gz
@@ -110,7 +110,7 @@ GRCh38_HG002_v4.2.1_complexandSVs_alldifficultregions.bed.gz
 GRCh38_HG002_v4.2.1_notin_complexandSVs_alldifficultregions.bed.gz
 GRCh38_HG002_v4.2.1_othercomplexwithin10bp_slop50.bed.gz
 
-***HG003***\
+***HG003***  
 GRCh38_HG003_v4.2.1_CNV_CCSandONT_elliptical_outlier.bed.gz
 GRCh38_HG003_v4.2.1_CNV_mrcanavarIllumina_CCShighcov_ONThighcov_intersection.bed.gz
 GRCh38_HG003_v4.2.1_SV_pbsv_slop25percent.bed.gz
@@ -125,7 +125,7 @@ GRCh38_HG003_v4.2.1_complexandSVs.bed.gz
 GRCh38_HG003_v4.2.1_complexandSVs_alldifficultregions.bed.gz
 GRCh38_HG003_v4.2.1_notin_complexandSVs_alldifficultregions.bed.gz
 
-***HG004***\
+***HG004***  
 GRCh38_HG004_v4.2.1_CNV_CCSandONT_elliptical_outlier.bed.gz
 GRCh38_HG004_v4.2.1_CNV_mrcanavarIllumina_CCShighcov_ONThighcov_intersection.bed.gz
 GRCh38_HG004_v4.2.1_SV_pbsv_slop25percent.bed.gz
@@ -140,7 +140,7 @@ GRCh38_HG004_v4.2.1_complexandSVs.bed.gz
 GRCh38_HG004_v4.2.1_complexandSVs_alldifficultregions.bed.gz
 GRCh38_HG004_v4.2.1_notin_complexandSVs_alldifficultregions.bed.gz
 
-***HG005***\
+***HG005***  
 GRCh38_HG005_v4.2.1_CNV_CCSandONT_elliptical_outlier.bed.gz
 GRCh38_HG005_v4.2.1_CNV_mrcanavarIllumina_CCShighcov_ONThighcov_intersection.bed.gz
 GRCh38_HG005_v4.2.1_SV_pbsv_hifiasm_dipcall_svanalyzer_slop25percent.bed.gz
@@ -156,7 +156,7 @@ GRCh38_HG005_v4.2.1_complexandSVs.bed.gz
 GRCh38_HG005_v4.2.1_complexandSVs_alldifficultregions.bed.gz
 GRCh38_HG005_v4.2.1_notin_complexandSVs_alldifficultregions.bed.gz
 
-***HG006***\
+***HG006***  
 GRCh38_HG006_v4.2.1_CNV_CCSandONT_elliptical_outlier.bed.gz
 GRCh38_HG006_v4.2.1_CNV_mrcanavarIllumina_CCShighcov_ONThighcov_intersection.bed.gz
 GRCh38_HG006_v4.2.1_SV_pbsv_slop25percent.bed.gz
@@ -171,7 +171,7 @@ GRCh38_HG006_v4.2.1_complexandSVs.bed.gz
 GRCh38_HG006_v4.2.1_complexandSVs_alldifficultregions.bed.gz
 GRCh38_HG006_v4.2.1_notin_complexandSVs_alldifficultregions.bed.gz
 
-***HG007***\
+***HG007***  
 GRCh38_HG007_v4.2.1_CNV_CCSandONT_elliptical_outlier.bed.gz
 GRCh38_HG007_v4.2.1_CNV_mrcanavarIllumina_CCShighcov_ONThighcov_intersection.bed.gz
 GRCh38_HG007_v4.2.1_SV_pbsv_slop25percent.bed.gz
@@ -188,39 +188,39 @@ GRCh38_HG007_v4.2.1_notin_complexandSVs_alldifficultregions.bed.gz
 
 #### File Descriptions:
 *CNVs and SVs*
-- `*inversions_slop25percent.bed.gz`\
+- `*inversions_slop25percent.bed.gz`  
 putative inversions detected in either haplotype of the trio-hifiasm assembly using svanalyzer, including regions of breakpoint homology, expanded by 25% of the region size on each side
-- `*CNV_CCSandONT_elliptical_outlier.bed.gz`\
+- `*CNV_CCSandONT_elliptical_outlier.bed.gz`  
 potential duplications relative to the reference, detected as higher than normal coverage in PacBio CCS and/or ONT
-- `*CNV_mrcanavarIllumina_CCShighcov_ONThighcov_intersection.bed.gz`\
+- `*CNV_mrcanavarIllumina_CCShighcov_ONThighcov_intersection.bed.gz`  
 potential duplications relative to the reference, detected as higher than normal coverage in PacBio CCS and/or ONT and as segmental duplications by mrcanavar from Illumina
-- `GRCh3X_HG002_v4.2.1_HG002_Tier1plusTier2_v0.6.1*.bed.gz`\
+- `GRCh3X_HG002_v4.2.1_HG002_Tier1plusTier2_v0.6.1*.bed.gz`  
 Regions containing GIAB HG002 v0.6 Tier1 or Tier2 insertions or deletions >=50bp, expanded to include overlapping tandem repeats, with and without expansion by 25% on each side
-- `GRCh3X_HG002_v4.2.1_CNV_gt2assemblycontigs_ONTCanu_ONTFlye_CCSCanu.bed.gz`\
+- `GRCh3X_HG002_v4.2.1_CNV_gt2assemblycontigs_ONTCanu_ONTFlye_CCSCanu.bed.gz`  
 potential duplications relative to the reference, detected as more than 2 contigs aligning in 3 ONT and CCS Trio-binned assemblies of HG002
-- `*CNVsandSVs.bed.gz`\
+- `*CNVsandSVs.bed.gz`  
 Union of the above genome specific putative CNV and SV bed files used to exclude regions from the v4.2.1 GIAB benchmark
 
 *Complex and Compound Variants*
-- `*comphetindel10bp_slop50.bed.gz`\
+- `*comphetindel10bp_slop50.bed.gz`  
 Regions containing at least one variant on each haplotype within 10bp of each other, and at least one of the variants is an indel, with 50bp slop added on each side
-- `*comphetsnp10bp_slop50.bed.gz`\
+- `*comphetsnp10bp_slop50.bed.gz`  
 Regions containing at least one variant on each haplotype within 10bp of each other, and all variants are snps, with 50bp slop added on each side
-- `*complexindel10bp_slop50.bed.gz`\
+- `*complexindel10bp_slop50.bed.gz`  
 Regions containing at least two variants on one haplotype within 10bp of each other, and at least one of the variants is an indel, with 50bp slop added on each side
-- `*complexindel10bp_slop50.bed.gz`\
+- `*complexindel10bp_slop50.bed.gz`  
 Regions containing at least two variants on one haplotype within 10bp of each other, and all variants are snps, with 50bp slop added on each side
-- `*othercomplexwithin10bp_slop50.bed.gz`\
+- `*othercomplexwithin10bp_slop50.bed.gz`  
 Any other regions containing at least two variants within 10bp of each other, with 50bp slop added on each side
 
 *Union of CNVs, SVs, Complex and Compound Heterozygous (i.e. multiallelic) Variants*
-- `GRCh3X_HG002_hifiasmv0.11_ComplexVar_in_TRgt100.bed.gz`\
+- `GRCh3X_HG002_hifiasmv0.11_ComplexVar_in_TRgt100.bed.gz`  
 represents complex variants in tandem repeats longer than 100 bps in HG002
-- `*complexandSVs.bed.gz`\
+- `*complexandSVs.bed.gz`  
 union of all above SV, CNV, complex and compound heterozygous variant bed files used for v4.2.1 of the GIAB benchmark for each sample
-- `*complexandSVs_alldifficultregions.bed.gz`\
+- `*complexandSVs_alldifficultregions.bed.gz`  
 Union of GRCh3x_alldifficultregions.bed.gz and complexandSVs.bed for v4.2.1 of the GIAB benchmark for each sample
-- `*notin_complexandSVs_alldifficultregions.bed.gz`\
+- `*notin_complexandSVs_alldifficultregions.bed.gz`  
 non-overlapping complement of *complexandSVs_alldifficultregions.bed.gz (i.e., genome after excluding the regions).
 
 --------------------------
@@ -229,16 +229,17 @@ METHODOLOGICAL INFORMATION
 
 #### Description of methods used to generate the stratifications:
 
-**CNVs and SVs**\
-stratifications were generated in genome specific python notebooks:\
-HG001, HG003, HG004, HG005, HG006, HG007 `HG00X_GRCh3X_CNV_exclusion_bed_generation.ipynb`\
-HG002 `GRCh3X_Generating_v4.1_excluded_beds.ipynb`\
+**CNVs and SVs**  
+stratifications were generated in genome specific python notebooks:  
+- HG001, HG003, HG004, HG005, HG006, HG007 `HG00X_GRCh3X_CNV_exclusion_bed_generation.ipynb`  
+- HG002 `GRCh3X_Generating_v4.1_excluded_beds.ipynb`  
+
 The union file `*CNVsandSVs.bed.gz` was generated as part of the Genome Specifc snakemake pipeline, `Snakefile` "rule CNVsandSVs" (#7). See pipeline directory for code (`Snakefile`), file dependencies (`Snakefile` and `GRCh3X_HG00X_v4.2.1_GenomeSpecific_config.yaml`) and software (`Snakefile` and environment yaml for bedtools). 
 
-**Complex and Compound Variant**\
+**Complex and Compound Variant**  
 stratifications were generated as part of the GenomeSpecific snakemake pipeline, see pipeline directory for code (Snakefile), file dependencies (`Snakefile` and `GRCh3X_HG00X_v4.2.1_GenomeSpecific_config.yaml`) and software (`Snakefile` and environment yamls for bedtools and vcflib). In summary this pipeline uses vcflib vcfgeno2haplo and unix commands to identify complex and compound variants in the v4.2.1 benchmark for all samples.
 
-**Union of CNVs, SVs, Complex and Compound Heterozygous (i.e. multiallelic) Variant**\
+**Union of CNVs, SVs, Complex and Compound Heterozygous (i.e. multiallelic) Variant**  
 stratifications were generated as part of the GenomeSpecific snakemake pipeline, see pipeline directory for code (Snakefile), file dependencies (`Snakefile` and `GRCh3X_HG00X_v4.2.1_GenomeSpecific_config.yaml`) and software (`Snakefile` and environment yamls for bedtools and vcflib). In summary this pipeline uses vcflib vcfgeno2haplo and unix commands to identify complex and compound variants in the v4.2.1 benchmark for all samples. Union variant files are then generated using bedtools and stratification dependency files listed in associated rules of `Snakefile`. The `GRCh3X_HG002_hifiasmv0.11_ComplexVar_in_TRgt100.bed.gz` stratification was generated as described in `GRCh3X_HG002__hifiasmv0.11_ComplexVar_in_TRgt100.sh`, tandem repeats longer than 100 bp that contain more than one variant in the HG002 hifiasm v0.11 assembly, which are complex variants that may be represented in different ways.
 
 

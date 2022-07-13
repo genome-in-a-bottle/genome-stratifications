@@ -1,17 +1,17 @@
-This GRCh38-FuncionalTechnicallyDifficult-README.md file was generated on 20200224 by Jennifer McDaniel (revised by Jennifer McDaniel 20211022)
+This GRCh38-FunctionalTechnicallyDifficult-README.md file was generated on 20200224 by Jennifer McDaniel (revised by Jennifer McDaniel 20211022)
 
 -------------------
 GENERAL INFORMATION
 -------------------
 
-**Title of Dataset:**\
+**Title of Dataset:**  
 GRCh38 Functional Technically Difficult BED files
 
-**Principal Investigator:**\
+**Principal Investigator:**  
 Justin Zook, NIST, jzook@nist.gov
 	
-**Dataset Contact(s):**\
-Justin Zook, NIST, jzook@nist.gov\
+**Dataset Contact(s):**  
+Justin Zook, NIST, jzook@nist.gov  
 Justin Wagner, NIST, justin.wager@nist.gov
 
 ----------------------
@@ -41,7 +41,7 @@ Reference for all other stratifications:
 
 	Olson, N. et al.
 	precisionFDA Truth Challenge V2: Calling variants from short- and long-reads in difficult-to-map regions
-	BioRxiv (2021) https://doi.org/10.1101/2020.11.13.380741
+	Cell Genomics, 11 May 2022, Volume 2, Issue 5,  https://doi.org/10.1016/j.xgen.2022.100129
 
 If stratifications were used in benchmarking with GA4GH/GIAB best practices or hap.py please reference:
 
@@ -75,19 +75,19 @@ If stratifications were used in benchmarking with GA4GH/GIAB best practices or h
 DATA & FILE OVERVIEW
 --------------------
 #### File List:
-GRCh38_BadPromoters.bed.gz\
-GRCh38_CMRGv1.00_duplicationinKMT2C.bed.gz\
+GRCh38_BadPromoters.bed.gz  
+GRCh38_CMRGv1.00_duplicationinKMT2C.bed.gz  
 GRCh38_CMRGv1.00_falselyduplicatedgenes.bed.gz
 
 #### File Descriptions:
 
-- `GRCh3X_BadPromoters.bed.gz`\
+- `GRCh3X_BadPromoters.bed.gz`  
 Identified transcription start sites or first exons that have systematically low coverage as described in ["Characterizing and measuring bias in sequence data"](https://doi.org/10.1186/gb-2013-14-5-r51)
 
-- `GRCh3X_CMRGv1.00_duplicationinKMT2C.bed.gz`\
+- `GRCh3X_CMRGv1.00_duplicationinKMT2C.bed.gz`  
 regions of KMT2C that are duplicated in most or all individuals relative to GRCh37 and GRCh38
 
-- `GRCh3X_CMRGv1.00_falselyduplicatedgenes.bed.gz`\
+- `GRCh3X_CMRGv1.00_falselyduplicatedgenes.bed.gz`  
 genes that are falsely duplicated in GRCh37 (MRC1 and part of CNR2) and GRCh38 (CBS, CRYAA, KCNE1, and H19)
 
 --------------------------

@@ -4,14 +4,14 @@ This GRCh38-ancestry-README.md file was generated on 20201022 by Jennifer McDani
 GENERAL INFORMATION
 -------------------
 
-**Title of Dataset:**\
+**Title of Dataset:**  
 GRCh38 Ancestry Stratification BED files
 
-**Principal Investigator:**\
+**Principal Investigator:**  
 Justin Zook, NIST, jzook@nist.gov
 
-**Dataset Contact(s):**\
-Justin Zook, NIST, jzook@nist.gov\
+**Dataset Contact(s):**  
+Justin Zook, NIST, jzook@nist.gov  
 
 ----------------------
 Stratification Summary
@@ -33,7 +33,7 @@ Reference for stratifications:
 
 	Aganezov, S. et al.
 	A complete reference genome improves analysis of human genetic variation
-	BioRxiv (2021) https://doi.org/10.1101/2021.07.12.452063
+	SCIENCE, 1 Apr 2022 Vol 376, Issue 6588, https://doi.org/10.1126/science.abl3533
 
 If stratifications were used in benchmarking with GA4GH/GIAB best practices or hap.py please reference:
 
@@ -66,11 +66,11 @@ If stratifications were used in benchmarking with GA4GH/GIAB best practices or h
 DATA & FILE OVERVIEW
 --------------------
 #### File List:
-GRCh38_ancestry_AFR.bed.gz\
-GRCh38_ancestry_AMR.bed.gz\
-GRCh38_ancestry_EAS.bed.gz\
-GRCh38_ancestry_EUR.bed.gz\
-GRCh38_ancestry_Neanderthal.bed.gz\
+GRCh38_ancestry_AFR.bed.gz  
+GRCh38_ancestry_AMR.bed.gz  
+GRCh38_ancestry_EAS.bed.gz  
+GRCh38_ancestry_EUR.bed.gz  
+GRCh38_ancestry_Neanderthal.bed.gz  
 GRCh38_ancestry_SAS.bed.gz
 
 #### File Descriptions:

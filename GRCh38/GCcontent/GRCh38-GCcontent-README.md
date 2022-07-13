@@ -4,14 +4,14 @@ This GRCh38-GCcontent-README.md file was generated on 20200224 by Jennifer McDan
 GENERAL INFORMATION
 -------------------
 
-**Title of Dataset:**\
+**Title of Dataset:**  
 GRCh38 GC Content Stratification BED files
 
-**Principal Investigator:**\
+**Principal Investigator:**  
 Justin Zook, NIST, jzook@nist.gov
 	
-**Dataset Contact(s):**\
-Justin Zook, NIST, jzook@nist.gov\
+**Dataset Contact(s):**  
+Justin Zook, NIST, jzook@nist.gov  
 
 ----------------------
 Stratification Summary
@@ -34,7 +34,7 @@ Reference for stratifications:
 
 	Olson, N. et al.
 	precisionFDA Truth Challenge V2: Calling variants from short- and long-reads in difficult-to-map regions
-	BioRxiv (2021) https://doi.org/10.1101/2020.11.13.380741
+	Cell Genomics, 11 May 2022, Volume 2, Issue 5,  https://doi.org/10.1016/j.xgen.2022.100129
 
 If stratifications were used in benchmarking with GA4GH/GIAB best practices or hap.py please reference:
 
@@ -67,31 +67,31 @@ If stratifications were used in benchmarking with GA4GH/GIAB best practices or h
 DATA & FILE OVERVIEW
 --------------------
 #### File List:
-GRCh38_gc15_slop50.bed.gz\
-GRCh38_gc15to20_slop50.bed.gz\
-GRCh38_gc20to25_slop50.bed.gz\
-GRCh38_gc25to30_slop50.bed.gz\
-GRCh38_gc30to55_slop50.bed.gz\
-GRCh38_gc55to60_slop50.bed.gz\
-GRCh38_gc60to65_slop50.bed.gz\
-GRCh38_gc65to70_slop50.bed.gz\
-GRCh38_gc70to75_slop50.bed.gz\
-GRCh38_gc75to80_slop50.bed.gz\
-GRCh38_gc80to85_slop50.bed.gz\
-GRCh38_gc85_slop50.bed.gz\
-GRCh38_gclt25orgt65_slop50.bed.gz\
-GRCh38_gclt30orgt55_slop50.bed.gz
+GRCh38_gc15_slop50.bed.gz  
+GRCh38_gc15to20_slop50.bed.gz  
+GRCh38_gc20to25_slop50.bed.gz  
+GRCh38_gc25to30_slop50.bed.gz  
+GRCh38_gc30to55_slop50.bed.gz  
+GRCh38_gc55to60_slop50.bed.gz  
+GRCh38_gc60to65_slop50.bed.gz  
+GRCh38_gc65to70_slop50.bed.gz  
+GRCh38_gc70to75_slop50.bed.gz  
+GRCh38_gc75to80_slop50.bed.gz  
+GRCh38_gc80to85_slop50.bed.gz  
+GRCh38_gc85_slop50.bed.gz  
+GRCh38_gclt25orgt65_slop50.bed.gz  
+GRCh38_gclt30orgt55_slop50.bed.gz  
 
 #### File Descriptions:
 GC content stratifications were created to stratify variants into different ranges(%) of GC content. 
 
-- `GRCh3X_gc15_slop50.bed.gz`\
+- `GRCh3X_gc15_slop50.bed.gz`  
 are regions where GC content is less than 15%
-- `GRCh3X_gc85_slop50.bed.gz`\
+- `GRCh3X_gc85_slop50.bed.gz`  
 are regions where GC content is greater than 85%
-- `GRCh3X_gcxxtoyy_slop50.bed.gz`\
+- `GRCh3X_gcxxtoyy_slop50.bed.gz`  
 are regions where GC content is between xx% and yy%
-- `GRCh3X_gclt*orgt*_slop50.bed.gz`\
+- `GRCh3X_gclt*orgt*_slop50.bed.gz`  
 are regions where GC content is less than some percentage (`gclt`) or greater than some percentage (`orgt`).
 
 --------------------------

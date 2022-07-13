@@ -4,13 +4,13 @@ This GRCh37-mappability-README.md file was generated on 20200219 by Nate Olson (
 GENERAL INFORMATION
 -------------------
 
-**Title of Dataset:**\
+**Title of Dataset:**  
 GRCh37 Mappability Stratification BED files
 
-**Principal Investigator:**\
+**Principal Investigator:**  
 Justin Zook, NIST, jzook@nist.gov
 	
-**Dataset Contact(s):**\
+**Dataset Contact(s):**  
 Nate D. Olson, NIST, nolson@nist.gov
 
 ----------------------
@@ -33,7 +33,7 @@ Reference for stratifications:
 
 	Olson, N. et al.
 	precisionFDA Truth Challenge V2: Calling variants from short- and long-reads in difficult-to-map regions
-	BioRxiv (2021) https://doi.org/10.1101/2020.11.13.380741
+	Cell Genomics, 11 May 2022, Volume 2, Issue 5,  https://doi.org/10.1016/j.xgen.2022.100129
 
 If stratifications were used in benchmarking with GA4GH/GIAB best practices or hap.py please reference:
 
@@ -66,10 +66,10 @@ If stratifications were used in benchmarking with GA4GH/GIAB best practices or h
 DATA & FILE OVERVIEW
 --------------------
 #### File List:
-GRCh37_nonunique_l100_m2_e1.bed.gz\
-GRCh37_nonunique_l250_m0_e0.bed.gz\
-GRCh37_lowmappabilityall.bed.gz\
-GRCh37_notinlowmappabilityall.bed.gz
+GRCh37_nonunique_l100_m2_e1.bed.gz  
+GRCh37_nonunique_l250_m0_e0.bed.gz  
+GRCh37_lowmappabilityall.bed.gz  
+GRCh37_notinlowmappabilityall.bed.gz  
 
 #### File Descriptions:
 "Mappablity" files stratify variant calls based on genomic region short read mappability. These files represent regions with low mappability for two different read lengths and error rates.
