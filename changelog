@@ -30,7 +30,7 @@ XY
 	
 #### REVISED STRATIFICATIONS
 LowComplexity
-- The following LowComplexity stratifications were revised for both GRCh37 and GRCh3to to include satellite regions
+- The following LowComplexity stratifications were revised for both GRCh37 and GRCh38 to to include satellite regions
 	GRCh3X_AllTandemRepeats_201to10000bp_slop5.bed.gz
 	GRCh3X_AllTandemRepeats_51to200bp_slop5.bed.gz
 	GRCh3X_AllTandemRepeats_gt10000bp_slop5.bed.gz
