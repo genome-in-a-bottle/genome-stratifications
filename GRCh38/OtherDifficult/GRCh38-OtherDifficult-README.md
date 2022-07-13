@@ -4,14 +4,14 @@ This GRCh38-OtherDifficult-README.md file was generated on 20200218 by Justin Zo
 GENERAL INFORMATION
 -------------------
 
-**Title of Dataset:**\
+**Title of Dataset:**  
 GRCh38 OtherDifficult BED files
 
-**Principal Investigator:**\
+**Principal Investigator:**  
 Justin Zook, NIST, jzook@nist.gov
 	
-**Dataset Contact(s):**\
-Justin Zook, NIST, jzook@nist.gov\
+**Dataset Contact(s):**  
+Justin Zook, NIST, jzook@nist.gov  
 Jennifer McDaniel, NIST, jennifer.mcdaniel@nist.gov
 
 ----------------------
@@ -35,26 +35,25 @@ Reference for stratifications from T2T consortium:
 
 	Aganezov, S. et al.
 	A complete reference genome improves analysis of human genetic variation
-	BioRxiv (2021) https://doi.org/10.1101/2021.07.12.452063
+	SCIENCE, 1 Apr 2022 Vol 376, Issue 6588, https://doi.org/10.1126/science.abl3533
 
 Reference for KIR stratification:
 
 	Wagner, J. et al.
 	Benchmarking challenging small variants with linked and long reads
-	BioRxiv (2021) https://doi.org/10.1101/2020.07.24.212712
+	Cell Genomics, 11 May 2022, Volume 2, Issue 5, https://doi.org/10.1016/j.xgen.2022.100128
 
 Reference for all other stratifications:
 
 	Olson, N. et al.
 	precisionFDA Truth Challenge V2: Calling variants from short- and long-reads in difficult-to-map regions
-	BioRxiv (2021) https://doi.org/10.1101/2020.11.13.380741
+	Cell Genomics, 11 May 2022, Volume 2, Issue 5,  https://doi.org/10.1016/j.xgen.2022.100129
 
 If stratifications were used in benchmarking with GA4GH/GIAB best practices or hap.py please reference:
 
 	Krusche, P., Trigg, L., Boutros, P.C. et al.
 	Best practices for benchmarking germline small-variant calls in human genomes.
 	Nat Biotechnol 37, 555–560 (2019). https://doi.org/10.1038/s41587-019-0054-x
-
 
 #### Links to other publicly accessible locations of the data:
 
@@ -81,51 +80,51 @@ If stratifications were used in benchmarking with GA4GH/GIAB best practices or h
 DATA & FILE OVERVIEW
 --------------------
 #### File List:
-GRCh38_KIR.bed.gz
-GRCh38_collapsed_duplication_FP_regions.bed.gz
-GRCh38_population_CNV_FP_regions.bed.gz
-GRCh38_false_duplications_correct_copy.bed.gz
-GRCh38_false_duplications_incorrect_copy.bed.gz
-GRCh38_LD_discordant_haplotypes_slop5bp.bed.gz
-GRCh38_gnomAD_InbreedingCoeff_slop1bp_merge1000bp.bed.gz
-GRCh38_L1H_gt500.bed.gz
-GRCh38_MHC.bed.gz
-GRCh38_VDJ.bed.gz
-GRCh38_contigs_lt500kb.bed.gz
-GRCh38_gaps_slop15kb.bed.gz
-GRCh38_allOtherDifficultregions.bed.gz
+GRCh38_KIR.bed.gz  
+GRCh38_collapsed_duplication_FP_regions.bed.gz  
+GRCh38_population_CNV_FP_regions.bed.gz  
+GRCh38_false_duplications_correct_copy.bed.gz  
+GRCh38_false_duplications_incorrect_copy.bed.gz  
+GRCh38_LD_discordant_haplotypes_slop5bp.bed.gz  
+GRCh38_gnomAD_InbreedingCoeff_slop1bp_merge1000bp.bed.gz  
+GRCh38_L1H_gt500.bed.gz  
+GRCh38_MHC.bed.gz  
+GRCh38_VDJ.bed.gz  
+GRCh38_contigs_lt500kb.bed.gz  
+GRCh38_gaps_slop15kb.bed.gz  
+GRCh38_allOtherDifficultregions.bed.gz  
 
 #### File Descriptions:
 ***Files from GA4GH and GIAB***
-- `GRCh38_contigs_lt500kb.bed.gz`\
+- `GRCh38_contigs_lt500kb.bed.gz`  
 reference assembly contigs smaller than 500kb
-- `GRCh38_gaps_slop15kb.bed.gz`\
+- `GRCh38_gaps_slop15kb.bed.gz`  
  gaps in the reference assembly with 15kb slop 
-- `GRCh38_MHC.bed.gz`\
-\Major Histocompatibility Complex (including HLA genes), chromosome 6
-- `GRCh38_VDJ.bed.gz`\
+- `GRCh38_MHC.bed.gz`  
+Major Histocompatibility Complex (including HLA genes), chromosome 6
+- `GRCh38_VDJ.bed.gz`  
 T cell and B cell VDJ regions that somatically recombine, chromosomes 2, 14 and 22
-- `GRCh38_L1H_gt500.bed.gz`\
+- `GRCh38_L1H_gt500.bed.gz`  
 L1Hs greater than 500 base pairs
 
 ***Files from T2T Consortium***
-- `GRCh38_collapsed_duplication_FP_regions.bed.gz`\
+- `GRCh38_collapsed_duplication_FP_regions.bed.gz`  
 conservative collapsed errors with clusters of CHM13 hets in GRCh38
-- `GRCh38_population_CNV_FP_regions.bed.gz`\
+- `GRCh38_population_CNV_FP_regions.bed.gz`  
 Collapses in GRCh38 with clusters of CHM13 hets that are variable in the population so many not errors 
-- `GRCh38_false_duplications_correct_copy.bed.gz`\
+- `GRCh38_false_duplications_correct_copy.bed.gz`  
 correct copy of falsely duplicated region 
-- `GRCh38_false_duplications_incorrect_copy.bed.gz`\
+- `GRCh38_false_duplications_incorrect_copy.bed.gz`  
 incorrect copy of falsely duplicated region 
-- `GRCh38_LD_discordant_haplotypes_slop5bp.bed.gz`\
+- `GRCh38_LD_discordant_haplotypes_slop5bp.bed.gz`  
 rare haplotye boundries in GRCh38 
-- `GRCh38_gnomAD_InbreedingCoeff_slop1bp_merge1000bp.bed.gz`\
+- `GRCh38_gnomAD_InbreedingCoeff_slop1bp_merge1000bp.bed.gz`  
 gnomAD inbreedingcoeff variants 
 
 ***Files from NIST Human Genomics Team***
-- `GRCh38_allOtherDifficultregions.bed.gz`\
+- `GRCh38_allOtherDifficultregions.bed.gz`  
 union of above regions
-- `GRCh38_KIR.bed.gz`\
+- `GRCh38_KIR.bed.gz`  
 This region is highly variable in copy number in the population, variant representation is challenging, and mapping-based methods have more errors in this region
 
 --------------------------

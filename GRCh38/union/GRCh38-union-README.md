@@ -1,24 +1,24 @@
-This GRCh38-union-README.md file was generated on 20200218 by Justin Zook (revised by Jennifer McDaniel 20211022)
+This GRCh38-Union-README.md file was generated on 20200218 by Justin Zook (revised by Jennifer McDaniel 20220621)
 
 -------------------
 GENERAL INFORMATION
 -------------------
 
-**Title of Dataset:**\
+**Title of Dataset:**  
 GRCh38 Union BED files
 
-**Principal Investigator:**\
+**Principal Investigator:**  
 Justin Zook, NIST, jzook@nist.gov
 	
-**Dataset Contact(s):**\
-Justin Zook, NIST, jzook@nist.gov\
+**Dataset Contact(s):**  
+Justin Zook, NIST, jzook@nist.gov  
 Jennifer McDaniel, NIST, jennifer.mcdaniel@nist.gov
 
 ----------------------
 Stratification Summary
 ----------------------
 
-Union BED files are from the Global Alliance for Genomics and Health (GA4GH) Benchmarking Team, the Genome in a Bottle Consortium and the [T2T Consortium](https://sites.google.com/ucsc.edu/t2tworkinggroup).
+Union BED files are from the Global Alliance for Genomics and Health (GA4GH) Benchmarking Team, the [Genome in a Bottle Consortium](https://www.nist.gov/programs-projects/genome-bottle) and the [T2T Consortium](https://sites.google.com/ucsc.edu/t2tworkinggroup).
 
 These files are developed by taking the union of the more granular difficult regions bed files. These files can be used as standard resource of BED files for use with GA4GH benchmarking tools such as [hap.py](https://github.com/Illumina/hap.py) to stratify true positive, false positive, and false negative variant calls into whether they are in or not in different general types of difficult regions or in any type of difficult region or complex variant. For example, performance can be measured in just the "easy" regions of the genome.
 
@@ -27,7 +27,7 @@ SHARING/ACCESS INFORMATION
 --------------------------
 
 #### Licenses/restrictions placed on the data, or limitations of reuse: 
-Publicly release data are freely available for reuse without embargo.
+Public release data are freely available for reuse without embargo.
 
 #### Recommended citations for the data:
 
@@ -35,13 +35,13 @@ Reference for stratifications from T2T consortium:
 
 	Aganezov, S. et al.
 	A complete reference genome improves analysis of human genetic variation
-	BioRxiv (2021) https://doi.org/10.1101/2021.07.12.452063
+	SCIENCE, 1 Apr 2022 Vol 376, Issue 6588, https://doi.org/10.1126/science.abl3533
 
 Reference for all other stratifications:
 
 	Olson, N. et al.
 	precisionFDA Truth Challenge V2: Calling variants from short- and long-reads in difficult-to-map regions
-	BioRxiv (2021) https://doi.org/10.1101/2020.11.13.380741
+	Cell Genomics, 11 May 2022, Volume 2, Issue 5,  https://doi.org/10.1016/j.xgen.2022.100129
 
 If stratifications were used in benchmarking with GA4GH/GIAB best practices or hap.py please reference:
 
@@ -75,19 +75,19 @@ If stratifications were used in benchmarking with GA4GH/GIAB best practices or h
 DATA & FILE OVERVIEW
 --------------------
 #### File List:
-GRCh38_alldifficultregions.bed.gz\
-GRCh38_alllowmapandsegdupregions.bed.gz\
-GRCh38_notinalldifficultregions.bed.gz\
-GRCh38_notinalllowmapandsegdupregions.bed.gz
+GRCh38_alldifficultregions.bed.gz  
+GRCh38_notinalldifficultregions.bed.gz  
+GRCh38_alllowmapandsegdupregions.bed.gz    
+GRCh38_notinalllowmapandsegdupregions.bed.gz   
 
 #### File Descriptions:
-- `GRCh3X_alldifficultregions.bed.gz`\
-union of all tandem repeats, all homopolymers >6bp, all imperfect homopolymers >10bp, all difficult to map regions, all segmental duplications, GC <25% or >65%, "Bad Promoters", and "OtherDifficult" regions (including regions from the T2T-consortium for GRCh38 only)
+- `GRCh3X_alldifficultregions.bed.gz`  
+union of all tandem repeats, all homopolymers >6bp, all imperfect homopolymers >10bp, all difficult to map regions, all segmental duplications, GC <25% or >65%, "Bad Promoters", chrX/Y XTR and ampliconic, satellites and "OtherDifficult" regions (including regions from the T2T-consortium for GRCh38 only)
  
-- `GRCh3X_alllowmapandsegdupregions.bed.gz`\
+- `GRCh3X_alllowmapandsegdupregions.bed.gz`  
 union of all difficult to map regions and all segmental duplications
 
-- `notin`\
+- `notin`  
 complement regions are non-overlapping genomic regions that remain after excluding stratification regions.  
 
 --------------------------
@@ -96,22 +96,32 @@ METHODOLOGICAL INFORMATION
 
 #### Description of methods used to generate the stratifications:
 
-Union stratifications were generated using bedtools multiIntersectBed and mergeBed in `merge_difficult_regions_GRCh3X_2.01.sh`.  Stratification input files and software used for creating union files are listed in `merge_difficult_regions_GRCh3X_2.01.sh`.  Information on input files can be found in READMEs for the following stratification types:
+Union stratifications were generated using [bedtools](https://bedtools.readthedocs.io/en/latest/) multiIntersectBed, sortBed, mergeBed and subtractBed. 
+
+`GRCh3X_alllowmapandsegdupregions.bed.gz` is a union of low mappability regions and segmental duplications. This, and complement "notin", were generated using `merge_difficult_regions_GRCh3X_2.01.sh`.  
+
+All other "Union" stratifications files were generated in `GRCh38-Union.ipynb`
+
+Dependencies:  
+
+Information on input files can be found in READMEs for the following stratification types:
 - OtherDifficult
 - Mappability
 - GCcontent
 - LowComplexity
 - SegDups
 - FunctionalTechnicallyDifficult
-
-The genomic reference BED file noted in associated script was created manually to include the entirety of each chromosome in each reference and are used to generate `notin` regions.
+- XY
 
 #### Post Processing of all files:
-Post-processing for file consistency was performed and described in GitHub post-processing directory.  Stratification BED(s) were post processed to remove reference Ns, specifically gaps and pseudoautosomal Y regions. The BEDs are merged and sorted and only contain chromosomes 1-22, X and Y. A file crosswalk is provided in the post-processing directory for use in correlating script file naming and files generated in post-processing. 
+Post-processing for file consistency was performed and described in GitHub post-processing directory.  Stratification BED(s) were post processed to remove reference Ns, specifically gaps and pseudoautosomal Y regions. The BEDs are merged, sorted and compressed and only contain chromosomes 1-22, X and Y.  
 
 #### Quality-Assurance of all files:
+Coverage comparison between GRCh37, GRCh38 and CHM13v2.0 BED files was performed for each chromosome using R. We confirmed coverage between the BEDs were as expected. Validation of chromosome coverage can be found in the GitHub validation directory. Benchmarking of a HiFi-DeepVariant callset was also performed using stratifications with hap.py.  Callset was benchmarked against the HG002 HPRC.cur.20211005 (trio hifiasm diploid assembly) draft-benchmark to ensure benchmarking statistics in these regions were as expected. 
 
-Coverage comparison between GRCh37 and GRCh38 BED files was performed for each chromosome using R. We confirmed coverage between the BEDs were as expected. Validation of chromosome coverage can be found in the GitHub validation directory. Benchmarking of a HiFi-DeepVariant callset was also performed using stratifications with hap.py.  Callset was benchmarked against the v4.2.1 GIAB benchmark set to ensure benchmarking statistics in these regions were as expected. 
+#### People involved with sample collection, processing, analysis and/or submission:
+[Melissa Wilson](http://www.sexchrlab.org), Arizona State University  
+[T2T Consortium](https://sites.google.com/ucsc.edu/t2tworkinggroup)
 
 --------------------------
 DATA-SPECIFIC INFORMATION 

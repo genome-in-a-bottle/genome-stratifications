@@ -1,17 +1,17 @@
-This GRCh37-SegDups-README.md file was generated on 20200219 by Jennifer McDaniel (reformatted 20211022).
+This GRCh37-SegDups-README.md file was generated on 20200219 by Jennifer McDaniel (revised on 20220706 by Jennifer McDaniel).
 
 -------------------
 GENERAL INFORMATION
 -------------------
 
-**Title of Dataset:**\
+**Title of Dataset:**  
 GRCh37 Segmental Duplications Stratification BED files
 
-**Principal Investigator:**\
+**Principal Investigator:**  
 Justin Zook, NIST, jzook@nist.gov
 	
-**Dataset Contact(s):**\
-Justin Zook, NIST, jzook@nist.gov\
+**Dataset Contact(s):**  
+Justin Zook, NIST, jzook@nist.gov  
 Jennifer McDaniel, NIST, jennifer.mcdaniel@nist.gov
 
 ----------------------
@@ -21,7 +21,7 @@ Segmental Duplication BED files are from the Global Alliance for Genomics and He
 
 These files can be used as standard resource of BED files for use with GA4GH benchmarking tools such as [hap.py](https://github.com/Illumina/hap.py) to stratify true positive, false positive, and false negative variant calls into whether they are in segmental duplications or in regions with non-trivial self-chain alignments.
 
-**IMPORTANT NOTE REGARDING UCSC chainSelf**\
+**IMPORTANT NOTE REGARDING UCSC chainSelf**  
 There were substantial differences between the self chains downloaded for GRCh37 and GRCh38, which we do not fully understand, so we recommend using these with care  For this reason the self chain files were not used in preparation of union files.
 
 --------------------------
@@ -38,7 +38,7 @@ Reference for stratifications:
 
 	Olson, N. et al.
 	precisionFDA Truth Challenge V2: Calling variants from short- and long-reads in difficult-to-map regions
-	BioRxiv (2021) https://doi.org/10.1101/2020.11.13.380741
+	Cell Genomics, 11 May 2022, Volume 2, Issue 5,  https://doi.org/10.1016/j.xgen.2022.100129
 
 If stratifications were used in benchmarking with GA4GH/GIAB best practices or hap.py please reference:
 
@@ -71,30 +71,30 @@ If stratifications were used in benchmarking with GA4GH/GIAB best practices or h
 DATA & FILE OVERVIEW
 --------------------
 #### File List:
-GRCh37_chainSelf.bed.gz\
-GRCh37_chainSelf_gt10kb.bed.gz\
-GRCh37_gt5segdups_gt10kb_gt99percidentity.bed.gz\
-GRCh37_notinchainSelf.bed.gz\
-GRCh37_notinchainSelf_gt10kb.bed.gz\
-GRCh37_notinsegdups.bed.gz\
-GRCh37_notinsegdups_gt10kb.bed.gz\
-GRCh37_segdups.bed.gz\
+GRCh37_chainSelf.bed.gz  
+GRCh37_chainSelf_gt10kb.bed.gz  
+GRCh37_gt5segdups_gt10kb_gt99percidentity.bed.gz  
+GRCh37_notinchainSelf.bed.gz  
+GRCh37_notinchainSelf_gt10kb.bed.gz  
+GRCh37_notinsegdups.bed.gz  
+GRCh37_notinsegdups_gt10kb.bed.gz  
+GRCh37_segdups.bed.gz  
 GRCh37_segdups_gt10kb.bed.gz
 
 #### File Descriptions:
-- `GRCh3X_chainSelf.bed.gz`\
+- `GRCh3X_chainSelf.bed.gz`  
 Describes non-trivial alignments of the genome reference to itself (excluding ALT loci). Non-trivial self-chains are regions where another part of the genome aligns to it because the sequences are similar (e.g., due to genomic duplication events). Further information on UCSC tracks can be found at https://genome.ucsc.edu/cgi-bin/hgTables.
 
-- `GRCh3X_segdups.bed.gz`\
+- `GRCh3X_segdups.bed.gz`  
 The UCSC genomicSuperDups file was processed to remove all but chromosomes 1-22, X and Y and overlapping regions merged. 
 
-- `GRCh3X_chainSelf_gt10kb.bed.gz` and `GRCh3X_segdups_gt10kb.bed.gz`\
+- `GRCh3X_chainSelf_gt10kb.bed.gz` and `GRCh3X_segdups_gt10kb.bed.gz`  
  are the `GRCh3X_chainSelf.bed.gz` and `GRCh3X_segdups.bed.gz` files filtered to regions greater than 10kb. 
 
-- `GRCh3X_gt5segdups_gt10kb_gt99percidentity.bed.gz`\
+- `GRCh3X_gt5segdups_gt10kb_gt99percidentity.bed.gz`  
 We further subset to regions >10kb covered by more than 5 segmental duplications with >99% identity in GRCh3X_gt5segdups_gt10kb_gt99percidentity.bed.gz
 
-- `notin`\
+- `notin`  
 are non-overlapping complements of the stratification regions (i.e., genome after excluding the regions).
 
 --------------------------
@@ -104,13 +104,15 @@ METHODOLOGICAL INFORMATION
 #### Description of methods used to generate the stratifications:
 These files are derived from the UCSC hg38 chainSelf, chainSelfLink and genomicSuperDups genome tracks.  
 
-*Self Chain*\
+*Self Chain*  
 The chainSelf and chainSelfLink files were retrieved from the UCSC golden path. To generate a self chain bed that describes non-trivial alignments of the genome reference to itself (excluding ALT loci), we used both the chainSelf and chainSelfLink files from UCSC, matching the IDs in the two files and only using the regions with base-level alignments (i.e., excluding gaps between chained alignments). We then merged overlapping regions and regions separated by <100bp.  An additional self chain output was filtered to yield only regions that are greater than 10kb.
+PAR-X regions in chainSelf file is improperly annotated and was subtracted with bedtools.
 
-*Segmental Duplications*\
+*Segmental Duplications*  
 The genomicSuperDups file was processed to remove all but chromosomes 1-22, X and Y and overlapping regions merged using bedtools An additional segmental duplication output was filtered to yield only regions that are greater than 10kb. We further subset to regions >10kb covered by more than 5 segmental duplications with >99% identity in GRCh3X_gt5segdups_gt10kb_gt99percidentity.bed.gz
+PAR-X regions in genomicSuperDups file is improperly annotated and was subtracted with Bedtools.
 
-The self-chain and segdups stratification BEDs were generated from UCSC input files and processed as described in scripts. Scripts for generating `GRCh37_gt5segdups_gt10kb_gt99percidentity.bed.gz` are in `GRCh37_Generating_v4.1_excluded_beds.ipynb`. Scripts for generating all other self-chain and segdup BEDs are in `GRCh37_new_chainSelf_and_Segdups.ipynb`.
+The self-chain and segdups stratification BEDs were generated from UCSC input files and processed as described in scripts. Scripts for generating `GRCh37_gt5segdups_gt10kb_gt99percidentity.bed.gz` are in `GRCh37_Generating_v4.1_excluded_beds.ipynb`. Scripts for generating all other self-chain and segdup BEDs are in `GRCh37_new_chainSelf_and_Segdups.ipynb`. During generation of v3.1 stratifications it was found that PAR-X regions were incorrectly annotated in the chainself and segmental duplication regions.  PAR-X was removed from all chainself and segmental duplictation stratifications in `GRCh37-SegmentalDuplications.ipynb`. PAR-X regions from Heng Li,[dipcall (hs37d5.PAR.bed)](https://github.com/lh3/dipcall/tree/master/data), was used for subtraction. 
 
 `notin` complement regions are non-overlapping genomic regions that remain after excluding stratification regions. The genomic reference BED files noted in associated scripts were created manually to include the entirety of each chromosome in each reference and are used to generate `notin` regions. 
 #### Dependencies:
@@ -118,19 +120,23 @@ The self-chain and segdups stratification BEDs were generated from UCSC input fi
 - [UCSC GRCh37 chainSelf.txt.gz](hgdownload.cse.ucsc.edu/goldenPath/hg19/database/chainSelf.txt.gz)
 - [UCSC GRCh37 chainSelfLink.txt.gz](hgdownload.cse.ucsc.edu/goldenPath/hg19/database/chainSelfLink.txt.gz)
 - [UCSC GRCh37 genomicSuperDups.txt.gz](/hgdownload.cse.ucsc.edu/goldenPath/hg19/database/genomicSuperDups.txt.gz)
+- [GRCh37 PAR-X regions, `hs37d5.PAR.bed`](https://github.com/lh3/dipcall/tree/master/data)
+
 
 #### Software:
 
 - [BEDTOOLS](https://bedtools.readthedocs.io/en/latest/)
 
 #### Post Processing of all files:
-Post-processing for file consistency was performed and described in GitHub post-processing directory.  Stratification BED(s) were post processed to remove reference Ns, specifically gaps and pseudoautosomal Y regions. The BEDs are merged and sorted and only contain chromosomes 1-22, X and Y. A file crosswalk is provided in the post-processing directory for use in correlating script file naming and files generated in post-processing. 
+Post-processing for file consistency was performed and described in GitHub post-processing directory.  Stratification BED(s) were post processed to remove reference Ns, specifically gaps and pseudoautosomal Y regions. The BEDs are merged, sorted and compressed and only contain chromosomes 1-22, X and Y.  
 
 #### Quality-Assurance of all files:
-Coverage comparison between GRCh37 and GRCh38 BED files was performed for each chromosome using R. We confirmed coverage between the BEDs were as expected. Validation of chromosome coverage can be found in the GitHub validation directory. Benchmarking of a HiFi-DeepVariant callset was also performed using stratifications with hap.py.  Callset was benchmarked against the v4.2.1 GIAB benchmark set to ensure benchmarking statistics in these regions were as expected. 
+Coverage comparison between GRCh37, GRCh38 and CHM13v2.0 BED files was performed for each chromosome using R. We confirmed coverage between the BEDs were as expected. Validation of chromosome coverage can be found in the GitHub validation directory. Benchmarking of a HiFi-DeepVariant callset was also performed using stratifications with hap.py.  Callset was benchmarked against the HG002 HPRC.cur.20211005 (trio hifiasm diploid assembly) draft-benchmark to ensure benchmarking statistics in these regions were as expected. 
 
 #### People involved with sample collection, processing, analysis and/or submission:
 Aaron Wegner (PacBio) contributed scripts for generating self chain files from UCSC inputs.
+
+Heng Li (Department of Data Sciences, Dana-Farber Cancer Institute, Boston, MA, USA and Department of Biomedical Informatics, Harvard Medical School, Boston, MA, USA) contributed PAR-X regions.
 
 --------------------------
 DATA-SPECIFIC INFORMATION 

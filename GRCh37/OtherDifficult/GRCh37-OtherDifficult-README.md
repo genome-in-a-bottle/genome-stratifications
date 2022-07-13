@@ -35,13 +35,13 @@ Reference for KIR stratification:
 
 	Wagner, J. et al.
 	Benchmarking challenging small variants with linked and long reads
-	BioRxiv (2021) https://doi.org/10.1101/2020.07.24.212712
+	Cell Genomics, 11 May 2022, Volume 2, Issue 5, https://doi.org/10.1016/j.xgen.2022.100128
 
 Reference for all other stratifications:
 
 	Olson, N. et al.
 	precisionFDA Truth Challenge V2: Calling variants from short- and long-reads in difficult-to-map regions
-	BioRxiv (2021) https://doi.org/10.1101/2020.11.13.380741
+	Cell Genomics, 11 May 2022, Volume 2, Issue 5,  https://doi.org/10.1016/j.xgen.2022.100129
 
 If stratifications were used in benchmarking with GA4GH/GIAB best practices or hap.py please reference:
 
@@ -74,41 +74,41 @@ If stratifications were used in benchmarking with GA4GH/GIAB best practices or h
 DATA & FILE OVERVIEW
 --------------------
 #### File List:
-GRCh37_KIR.bed.gz\
-GRCh37_L1H_gt500.bed.gz\
-GRCh37_MHC.bed.gz\
-GRCh37_VDJ.bed.gz\
-GRCh37_allOtherDifficultregions.bed.gz\
-GRCh37_contigs_lt500kb.bed.gz\
-GRCh37_gaps_slop15kb.bed.gz\
-GRCh37_hg38_minimap2_asm20_N10_gt1contig_gt1kb.bed.gz\
-GRCh37_hg38_minimap2_asm20_N10_nocovgt1kb.bed.gz\
-GRCh37_hs37d5_decoy_alignments.bed.gz\
-GRCh37_missing_and_multiple_alignments_of_GRCh38.bed.gz
+GRCh37_KIR.bed.gz  
+GRCh37_L1H_gt500.bed.gz  
+GRCh37_MHC.bed.gz  
+GRCh37_VDJ.bed.gz  
+GRCh37_allOtherDifficultregions.bed.gz  
+GRCh37_contigs_lt500kb.bed.gz  
+GRCh37_gaps_slop15kb.bed.gz  
+GRCh37_hg38_minimap2_asm20_N10_gt1contig_gt1kb.bed.gz  
+GRCh37_hg38_minimap2_asm20_N10_nocovgt1kb.bed.gz  
+GRCh37_hs37d5_decoy_alignments.bed.gz  
+GRCh37_missing_and_multiple_alignments_of_GRCh38.bed.gz  
 
 #### File Descriptions:
 ***Files from GA4GH and GIAB***
-- `GRCh37_contigs_lt500kb.bed.gz`\
+- `GRCh37_contigs_lt500kb.bed.gz`  
 reference assembly contigs smaller than 500kb
-- `GRCh37_gaps_slop15kb.bed.gz`\
+- `GRCh37_gaps_slop15kb.bed.gz`  
  gaps in the reference assembly with 15kb slop 
-- `GRCh37_MHC.bed.gz`\
+- `GRCh37_MHC.bed.gz`  
 \Major Histocompatibility Complex (including HLA genes), chromosome 6
-- `GRCh37_VDJ.bed.gz`\
+- `GRCh37_VDJ.bed.gz`  
 T cell and B cell VDJ regions that somatically recombine, chromosomes 2, 14 and 22
-- `GRCh37_L1H_gt500.bed.gz`\
+- `GRCh37_L1H_gt500.bed.gz`  
 L1Hs greater than 500 base pairs
-- `GRCh37_hs37d5_decoy_alignments.bed.gz`\
+- `GRCh37_hs37d5_decoy_alignments.bed.gz`  
  alignments of the hs37d5 decoy sequences to GRCh37, potentially duplicated regions
-- `GRCh37_hg38_minimap2_asm20_N10_gt1contig_gt1kb.bed.gz`\
+- `GRCh37_hg38_minimap2_asm20_N10_gt1contig_gt1kb.bed.gz`  
 GRCh37 regions covered by >1 contig from GRCh38 using minimap2
-- `GRCh37_hg38_minimap2_asm20_N10_nocovgt1kb.bed.gz`\
+- `GRCh37_hg38_minimap2_asm20_N10_nocovgt1kb.bed.gz`  
 GRCh37 regions covered by no contigs from GRCh38 using minimap2
-- `GRCh37_missing_and_multiple_alignments_of_GRCh38.bed.gz`\
+- `GRCh37_missing_and_multiple_alignments_of_GRCh38.bed.gz`  
 GRCh37 regions covered by >1 contig or no contigs from GRCh38 as defined by GRC as SP or SPonly
-- `GRCh37_allOtherDifficultregions.bed.gz`\
+- `GRCh37_allOtherDifficultregions.bed.gz`  
 union of above regions
-- `GRCh37_KIR.bed.gz`\
+- `GRCh37_KIR.bed.gz`  
 This region is highly variable in copy number in the population, variant representation is challenging, and mapping-based methods have more errors in this region.
 
 --------------------------

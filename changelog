@@ -1,3 +1,73 @@
+## [3.1] - 2022-07-08
+#### NEW STRATIFICATIONS
+All stratifications for CHM13v2.0 new and include stratifications for:
+	Union
+	LowComplexity
+	SegmentalDuplications
+	XY
+	OtherDifficult
+
+LowComplexity
+- added satellite regions and union of all tandem repeats
+	GRCh3X_satellites.bed.gz
+	GRCh3X_notinsatellites.bed.gz
+	GRCh3X_allTandemRepeats.bed.gz
+	GRCh3X_notinallTandemRepeats.bed.gz
+
+XY
+- Added regions specific to chromosomes X and Y.
+	GRCh3X_allTandemRepeats.bed.gz
+	GRCh3X_notinallTandemRepeats.bed.gz
+	GRCh3X_AllAutosomes.bed.gz
+	GRCh3X_chrX_PAR.bed.gz
+	GRCh3X_chrX_ampliconic.bed.gz
+	GRCh3X_chrX_XTR.bed.gz
+	GRCh3X_chrX_nonPAR.bed.gz
+	GRCh3X_chrY_PAR.bed.gz
+	GRCh3X_chrY_ampliconic.bed.gz
+	GRCh3X_chrY_XTR.bed.gz
+	GRCh3X_chrY_nonPAR.bed.gz
+	
+#### REVISED STRATIFICATIONS
+LowComplexity
+- The following LowComplexity stratifications were revised for both GRCh37 and GRCh3to to include satellite regions
+	GRCh3X_AllTandemRepeats_201to10000bp_slop5.bed.gz
+	GRCh3X_AllTandemRepeats_51to200bp_slop5.bed.gz
+	GRCh3X_AllTandemRepeats_gt10000bp_slop5.bed.gz
+	GRCh3X_AllTandemRepeats_gt100bp_slop5.bed.gz
+	GRCh3X_AllTandemRepeats_lt51bp_slop5.bed.gz
+	GRCh3X_AllTandemRepeatsandHomopolymers_slop5.bed.gz
+	GRCh3X_notinAllTandemRepeatsandHomopolymers_slop5.bed.gz
+	All other LowComplexity stratifications were regenerated as part of code in new GRCh3X_LowComplexity.ipynb however are unchanged.
+
+Segmental Duplications
+- PAR-X was found to be incorrectly annotated in the following files and therefore PAR-X regions removed from these files.
+	GRCh38_chainSelf.bed.gz
+	GRCh38_chainSelf_gt10kb.bed.gz
+	GRCh38_notinchainSelf.bed.gz
+	GRCh38_notinchainSelf_gt10kb.bed.gz
+	GRCh37_chainSelf.bed.gz
+	GRCh37_chainSelf_gt10kb.bed.gz
+	GRCh37_notinchainSelf.bed.gz
+	GRCh37_notinchainSelf_gt10kb.bed.gz
+	GRCh37_notinsegdups.bed.gz
+	GRCh37_notinsegdups_gt10kb.bed.gz
+	GRCh37_segdups.bed.gz
+	GRCh37_segdups_gt10kb.bed.gz
+	
+Union
+- The following Union stratifications were revised for both GRCh37 and GRCh38 to include satellites, chrX/Y XTR and ampliconic regions.
+	GRCh38_alldifficultregions.bed.gz
+	GRCh38_notinalldifficultregions.bed.gz
+- The following Union stratifications were revised for both GRCh37 and GRCh38 to include satellites, chrX/Y XTR and ampliconic regions and removal of PAR-X regions from SegDups file.
+	GRCh37_alldifficultregions.bed.gz
+	GRCh37_notinalldifficultregions.bed.gz
+	GRCh37_alllowmapandsegdupregions.bed.gz  
+	GRCh37_notinalllowmapandsegdupregions.bed.gz
+	
+#### REMOVED STATIFICATIONS
+- None 
+
 ## [3.0] - 2021-10-20
 #### NEW STRATIFICATIONS
 Ancestry

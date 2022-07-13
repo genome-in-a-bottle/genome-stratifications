@@ -1,23 +1,23 @@
-This GRCh38-LowComplexity-README.md file was generated on 20200218 by Justin Zook (revised on 20211022 by Jennifer McDaniel). 
+This GRCh38-LowComplexity-README.md file was generated on 20200218 by Justin Zook (revised on 20220616 by Jennifer McDaniel). 
 
 -------------------
 GENERAL INFORMATION
 -------------------
 
-**Title of Dataset:**\
+**Title of Dataset:**  
 GRCh38 Low Complexity Stratification BED files
 
-**Principal Investigator:**\
+**Principal Investigator:**  
 Justin Zook, NIST, jzook@nist.gov
 	
-**Dataset Contact(s):**\
-Justin Zook, NIST, jzook@nist.gov\
+**Dataset Contact(s):**  
+Justin Zook, NIST, jzook@nist.gov  
 Justin Wagener, NIST, justin.wagner@nist.gov
 
 ----------------------
 Stratification Summary
 ----------------------
-Low Complexity BED files are from the Global Alliance for Genomics and Health (GA4GH) Benchmarking Team and the Genome in a Bottle Consortium. 
+Low Complexity BED files are from the Global Alliance for Genomics and Health (GA4GH) Benchmarking Team and the  [Genome in a Bottle Consortium](https://www.nist.gov/programs-projects/genome-bottle).
 
 These files can be used as standard resource of BED files for use with GA4GH benchmarking tools such as [hap.py](https://github.com/Illumina/hap.py) to stratify true positive, false positive, and false negative variant calls into regions with different types and sizes of low complexity sequence (e.g., homopolymers, STRs, VNTRs, other locally repetitive sequences). 
 
@@ -34,7 +34,7 @@ Reference for stratifications:
 
 	Olson, N. et al.
 	precisionFDA Truth Challenge V2: Calling variants from short- and long-reads in difficult-to-map regions
-	BioRxiv (2021) https://doi.org/10.1101/2020.11.13.380741
+	Cell Genomics, 11 May 2022, Volume 2, Issue 5,  https://doi.org/10.1016/j.xgen.2022.100129
 
 If stratifications were used in benchmarking with GA4GH/GIAB best practices or hap.py please reference:
 
@@ -67,45 +67,52 @@ If stratifications were used in benchmarking with GA4GH/GIAB best practices or h
 DATA & FILE OVERVIEW
 --------------------
 #### File List:
-GRCh38_AllHomopolymers_gt6bp_imperfectgt10bp_slop5.bed.gz\
-GRCh38_AllTandemRepeats_201to10000bp_slop5.bed.gz\
-GRCh38_AllTandemRepeats_51to200bp_slop5.bed.gz\
-GRCh38_AllTandemRepeats_gt10000bp_slop5.bed.gz\
-GRCh38_AllTandemRepeats_gt100bp_slop5.bed.gz\
-GRCh38_AllTandemRepeats_lt51bp_slop5.bed.gz\
-GRCh38_AllTandemRepeatsandHomopolymers_slop5.bed.gz\
-GRCh38_SimpleRepeat_diTR_11to50_slop5.bed.gz\
-GRCh38_SimpleRepeat_diTR_51to200_slop5.bed.gz\
-GRCh38_SimpleRepeat_diTR_gt200_slop5.bed.gz\
-GRCh38_SimpleRepeat_homopolymer_4to6_slop5.bed.gz\
-GRCh38_SimpleRepeat_homopolymer_7to11_slop5.bed.gz\
-GRCh38_SimpleRepeat_homopolymer_gt11_slop5.bed.gz\
-GRCh38_SimpleRepeat_homopolymer_gt20_slop5.bed.gz\
-GRCh38_SimpleRepeat_imperfecthomopolgt10_slop5.bed.gz\
-GRCh38_SimpleRepeat_imperfecthomopolgt20_slop5.bed.gz\
-GRCh38_SimpleRepeat_quadTR_20to50_slop5.bed.gz\
-GRCh38_SimpleRepeat_quadTR_51to200_slop5.bed.gz\
-GRCh38_SimpleRepeat_quadTR_gt200_slop5.bed.gz\
-GRCh38_SimpleRepeat_triTR_15to50_slop5.bed.gz\
-GRCh38_SimpleRepeat_triTR_51to200_slop5.bed.gz\
-GRCh38_SimpleRepeat_triTR_gt200_slop5.bed.gz\
-GRCh38_notinAllHomopolymers_gt6bp_imperfectgt10bp_slop5.bed.gz\
-GRCh38_notinAllTandemRepeatsandHomopolymers_slop5.bed.gz
+GRCh38_AllHomopolymers_gt6bp_imperfectgt10bp_slop5.bed.gz  
+GRCh38_AllTandemRepeats_201to10000bp_slop5.bed.gz  
+GRCh38_AllTandemRepeats_51to200bp_slop5.bed.gz  
+GRCh38_AllTandemRepeats_gt10000bp_slop5.bed.gz  
+GRCh38_AllTandemRepeats_gt100bp_slop5.bed.gz  
+GRCh38_AllTandemRepeats_lt51bp_slop5.bed.gz  
+GRCh38_AllTandemRepeatsandHomopolymers_slop5.bed.gz  
+GRCh38_allTandemRepeats.bed.gz  
+GRCh38_SimpleRepeat_diTR_11to50_slop5.bed.gz  
+GRCh38_SimpleRepeat_diTR_51to200_slop5.bed.gz  
+GRCh38_SimpleRepeat_diTR_gt200_slop5.bed.gz  
+GRCh38_SimpleRepeat_homopolymer_4to6_slop5.bed.gz  
+GRCh38_SimpleRepeat_homopolymer_7to11_slop5.bed.gz  
+GRCh38_SimpleRepeat_homopolymer_gt11_slop5.bed.gz  
+GRCh38_SimpleRepeat_homopolymer_gt20_slop5.bed.gz  
+GRCh38_SimpleRepeat_imperfecthomopolgt10_slop5.bed.gz  
+GRCh38_SimpleRepeat_imperfecthomopolgt20_slop5.bed.gz  
+GRCh38_SimpleRepeat_quadTR_20to50_slop5.bed.gz  
+GRCh38_SimpleRepeat_quadTR_51to200_slop5.bed.gz  
+GRCh38_SimpleRepeat_quadTR_gt200_slop5.bed.gz  
+GRCh38_SimpleRepeat_triTR_15to50_slop5.bed.gz  
+GRCh38_SimpleRepeat_triTR_51to200_slop5.bed.gz  
+GRCh38_SimpleRepeat_triTR_gt200_slop5.bed.gz  
+GRCh38_notinAllHomopolymers_gt6bp_imperfectgt10bp_slop5.bed.gz  
+GRCh38_notinAllTandemRepeatsandHomopolymers_slop5.bed.gz  
+GRCh38_satellites_slop5.bed.gz  
+GRCh38_notinsatellites_slop5.bed.gz  
 
 #### File Descriptions:
 All beds have 5bp slop added on each side to capture variants at the edge of the repeats (sometimes insertions were not captured properly before in stratifications).
 
-- `GRCh3X_SimpleRepeat*_slop5.bed.gz`\
+- `GRCh3X_SimpleRepeat*_slop5.bed.gz`  
 perfect repeats of different unit sizes (i.e., homopolymers, and dinucleotide, trinucleotide, and quadnucleotide STRs) and different total repeat lengths (i.e., <=50bp, 51-200bp, or >200bp)
-- `GRCh3X_SimpleRepeat_imperfecthomopolgt*_slop5.bed.gz`\
+- `GRCh3X_SimpleRepeat_imperfecthomopolgt*_slop5.bed.gz`  
 perfect homopolymers >*p as well as imperfect homopolymers where a single base was repeated >10bp except for a 1bp interruption by a different base
-- `GRCh3X_AllTandemRepeats_*_slop5.bed.gz`\
-union of SimpleRepeat dinucleotide, trinucleotide, and quadnucleotide STRs as well as RepeatMasker_LowComplexity, RepeatMasker_SimpleRepeats, and TRF_SimpleRepeats downloaded from UCSC Genome Browser
-- `GRCh3X_AllHomopolymers_gt6bp_imperfectgt10bp_slop5.bed.gz`\
+- `GRCh3X_AllTandemRepeats_*_slop5.bed.gz`  
+union of SimpleRepeat dinucleotide, trinucleotide, and quadnucleotide STRs as well as UCSC Genome Brower RepeatMasker_LowComplexity, RepeatMasker_SimpleRepeats, RepeatMasker_Satellite, and TRF_SimpleRepeat.
+- `GRCh3X_AllHomopolymers_gt6bp_imperfectgt10bp_slop5.bed.gz`  
 union of all perfect homopolymers >6bp and imperfect homopolymers >10bp
-- `GRCh3X_AllTandemRepeatsandHomopolymers_slop5.bed.gz`\
+- `GRCh3X_AllTandemRepeatsandHomopolymers_slop5.bed.gz`  
 union of AllTandemRepeats_* with AllHomopolymers_gt6bp_imperfectgt10bp_slop5.bed.gz
-- `GRCh3X_notin*_slop5.bed.gz`\
+- `GRCh3X_satellites_slop5.bed.gz`  
+Centromeric and Pericentromeric Satellite Annotations
+- `GRCh3X_allTandemRepeats.bed.gz`  
+union of all tandem repeats 
+- `GRCh3X_notin*.bed.gz`  
 are non-overlapping complements of the stratification regions (i.e., genome after excluding the regions).
 
 --------------------------
@@ -114,24 +121,31 @@ METHODOLOGICAL INFORMATION
 
 #### Description of methods used to generate the stratifications:
 
+All Stratfications generated in python notebook `GRCh38_LowComplexity.ipynb`.
+
 To capture the full spectrum of repeats, we used a python script to find exact repeats and UCSC RepeatMasker Low_Complexity, UCSC RepeatMasker Simple_Repeats, and UCSC TRF Low_Complexity.
 
-Beds were generated by `FindSimpleRepeats_GRCh3X_v2.sh`. To create bed files with perfect 1, 2, 3, and 4 bp repeats of lengths, we used the python script `findSimpleRegions_quad.py` (created by Geoff Nilsen, and modified by Justin Zook to output 4-bp repeats).
+To create bed files with perfect 1, 2, 3, and 4 bp repeats of lengths, we used the python script `findSimpleRegions_quad.py` (created by Geoff Nilsen, and modified by Justin Zook to output 4-bp repeats).
 
 `notin` complement regions are non-overlapping genomic regions that remain after excluding stratification regions. The genomic reference BED files noted in associated scripts were created manually to include the entirety of each chromosome in each reference and are used to generate `notin` regions. 
 
-`GRCh3X_SimpleRepeat_homopolymer_gt20_slop5.bed.gz` and `GRCh3X_SimpleRepeat_imperfecthomopolgt20_slop5.bed.gz` regions were identified during manual curation of Medically Relevant Gene Benchmark and accounted for a majority of false negatives and false positives for both SNPs and INDELs.  These BED files were generated in `GRCh3X_SimpleRepeat_homopolymer_gt20.sh` and `GRCh3X_SimpleRepeat_imperfecthomoplgt20.sh`using similar methods as were used for the other Low Complexity regions. 
+`GRCh3X_SimpleRepeat_homopolymer_gt20_slop5.bed.gz` and `GRCh3X_SimpleRepeat_imperfecthomopolgt20_slop5.bed.gz` regions were identified during manual curation of Medically Relevant Gene Benchmark and accounted for a majority of false negatives and false positives for both SNPs and INDELs. 
+
+`GRCh3X_satellites_slop5.bed.gz` contains "Satellite" regions from UCSC RepeatMasker.  
 
 Dependencies: 
-UCSC RepeatMasker and TRF_SimpleRepeats downloaded 20190722
-- [UCSC RepeatMasker used for UCSC RepeatMasker Low_Complexity and UCSC RepeatMasker Simple_Repeats](hgdownload.cse.ucsc.edu/goldenPath/hg19/database/rmsk.txt.gz)
-- [UCSC TRF Low Complexity](hgdownload.cse.ucsc.edu/goldenPath/hg19/database/simpleRepeat.txt.gz)
+
+[GRCh38 Reference](https://ftp.ncbi.nlm.nih.gov/genomes/all/GCA/000/001/405/GCA_000001405.15_GRCh38/seqs_for_alignment_pipelines.ucsc_ids/GCA_000001405.15_GRCh38_no_alt_analysis_set.fna.gz) Downloaded 20220505
+
+UCSC RepeatMasker and TRF_SimpleRepeats downloaded 20220511
+- [UCSC RepeatMasker used for UCSC RepeatMasker Low_Complexity and UCSC RepeatMasker Simple_Repeats](hgdownload.cse.ucsc.edu/goldenPath/hg38/database/rmsk.txt.gz)
+- [UCSC TRF Low Complexity](hgdownload.cse.ucsc.edu/goldenPath/hg38/database/simpleRepeat.txt.gz)
 
 #### Post Processing of all files:
-Post-processing for file consistency was performed and described in GitHub post-processing directory.  Stratification BED(s) were post processed to remove reference Ns, specifically gaps and pseudoautosomal Y regions. The BEDs are merged and sorted and only contain chromosomes 1-22, X and Y. A file crosswalk is provided in the post-processing directory for use in correlating script file naming and files generated in post-processing. 
+Post-processing for file consistency was performed and described in GitHub post-processing directory.  Stratification BED(s) were post processed to remove reference Ns, specifically gaps and pseudoautosomal Y regions. The BEDs are merged, sorted and compressed and only contain chromosomes 1-22, X and Y.  
 
 #### Quality-Assurance of all files:
-Coverage comparison between GRCh37 and GRCh38 BED files was performed for each chromosome using R. We confirmed coverage between the BEDs were as expected. Validation of chromosome coverage can be found in the GitHub validation directory. Benchmarking of a HiFi-DeepVariant callset was also performed using stratifications with hap.py.  Callset was benchmarked against the v4.2.1 GIAB benchmark set to ensure benchmarking statistics in these regions were as expected. 
+Coverage comparison between GRCh37, GRCh38 and CHM13v2.0 BED files was performed for each chromosome using R. We confirmed coverage between the BEDs were as expected. Validation of chromosome coverage can be found in the GitHub validation directory. Benchmarking of a HiFi-DeepVariant callset was also performed using stratifications with hap.py.  Callset was benchmarked against the HG002 HPRC.cur.20211005 (trio hifiasm diploid assembly) draft-benchmark to ensure benchmarking statistics in these regions were as expected. 
 
 #### People involved with sample collection, processing, analysis and/or submission:
 Geoff Nilsen, Illumina, Inc.
