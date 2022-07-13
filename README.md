@@ -2,11 +2,11 @@
 INTRODUCTION
 -------------------
 
-This repository contains the files used for generating and evaluating the v3.0 stratifications.  The stratification files were developed with the Global Alliance for Genomic Health (GA4GH) Benchmarking Team, the Genome in a Bottle Consortium and the Telomere-to-Telomere Consortium ([T2T Consortium](https://sites.google.com/ucsc.edu/t2tworkinggroup)).   They are intended as a standard resource of BED files for use in stratifying true positive, false positive and false negative variant calls in challenging and targeted regions of the the genome. 
+This repository contains the files used for generating and evaluating the v3.1 stratifications.  The stratification files were developed with the Global Alliance for Genomic Health (GA4GH) Benchmarking Team, the [Genome in a Bottle Consortium (GIAB)](https://www.nist.gov/programs-projects/genome-bottle) and the [Telomere-to-Telomere Consortium (T2T)](https://sites.google.com/ucsc.edu/t2tworkinggroup).   They are intended as a standard resource of BED files for use in stratifying true positive, false positive and false negative variant calls in challenging and targeted regions of the the genome. 
 
 These files can be used as a standard resource of BED files for use with GA4GH benchmark tools such as [hap.py](https://github.com/Illumina/hap.py).
 
-*NOTE: Stratification BED files are only accessible on the [GIAB FTP site](https://ftp-trace.ncbi.nlm.nih.gov/ReferenceSamples/giab/release/genome-stratifications/) and [data.nist.gov](https://doi.org/10.18434/mds2-2499).*
+*NOTE: v3.1 stratification BED files are only accessible on the [GIAB FTP site](https://ftp-trace.ncbi.nlm.nih.gov/ReferenceSamples/giab/release/genome-stratifications/)*
  
 -------------------
 GENERAL INFORMATION
@@ -17,7 +17,7 @@ Author Information
 - Justin Wagner, NIST, justin.wagner@nist.gov
 - Jennifer McDaniel, NIST, jennifer.mcdaniel@nist.gov
 
-Date of data collection: 2015-01-01 to 2021-10-22
+Date of data collection: 2015-01-01 to 2022-07-11
 
 --------------------------
 SHARING/ACCESS INFORMATION
@@ -38,95 +38,96 @@ If stratifications were used in benchmarking with GA4GH/GIAB best practices or h
 
 [GIAB FTP URL](https://ftp://ftp-trace.ncbi.nlm.nih.gov/ReferenceSamples/giab/release/genome-stratifications/)
 - Individual stratification BED files as well as zipped directories (tar.gz) of files
-- stratification README
+- stratification READMEs
 - .tsvs for benchmarking with hap.py
 - MD5 checksums
 
 [GitHub URL](https://github.com/genome-in-a-bottle/genome-stratifications/)
-- stratification README
+- stratification READMEs
 - scripts used to generate and evaluate stratification BED files
 - .tsvs for benchmarking with hap.py
-- MD5 checksums
-
-[Data.nist.gov](https://doi.org/10.18434/mds2-2499)
-- Zipped directories (tar.gz) of stratification BED files
-- stratification README
-- scripts used to generate and evaluate stratification BED files
-- .tsv for benchmarking with hap.py
 - MD5 checksums
 
 ----------------------
 GitHub FILE OVERVIEW
 ----------------------
-*NOTE: The GitHub repository does not contain any stratification region files (bed.gz), please see data.nist.gov or GIAB FTP site for stratification files.* 
+*NOTE: The GitHub repository does not contain any stratification region files (bed.gz), please see GIAB FTP site for stratification files.* 
 
-**`GRCh3X/`**\
+**`GRCh3X/` and `CHM13v2.0/`**  
 Subdirectories contain associated READMEs along with scripts and notebooks used to generate the various stratifications. Provided files are grouped by reference and stratification type. 
-A file with md5 checksums, **`v3.0-stratifications-GRCh3X-md5s.txt`**, is also provided.  These directories also contain .tsv files for use when benchmarking with hap.py. The following .tsv files provide paths to stratifications relative to the reference directory:
+A file with md5 checksums, **`v3.1-stratifications-<ref>-md5s.txt`**, is also provided.  These directories also contain .tsv files for use when benchmarking with hap.py. The following .tsv files provide paths to stratifications relative to the reference directory:
 
--  **`v3.0-GRCh3X-all-stratifications.tsv`**\
-The all tsv contains all stratifications, including different repeat sizes and genome-specific regions that are difficult due to challenging variants in each GIAB sample
-- **`v3.0-GRCh3X-stratifications-all-except-genome-specific-stratifications.tsv`**\
-The all-expect-genome-specific tsv contains all stratifications that are difficult due to challenging variants but excludes Genome Specific stratifications.
-- **`v3.0-GRCh3X-CMRG-stratifications.tsv`**\
-The CMRG tsv contains a simplified set of stratifications that can be used when benchmarking against the GIAB CMRG v1.00 small variant benchmark. This contains only higher level stratifications.
+*GRCh3X*
 
-- **`v3.0-GRCh3X-v4.2.1-stratifications.tsv`**\
-The v4.2.1 tsv contains a simplified set of stratifications that can be used when benchmarking against the whole genome small variant benchmarks such as GIAB v4.2.1. This contains only higher level stratifications.
+-  **`v3.1-GRCh3X-all-stratifications.tsv`**\
+The "all" tsv contains all stratifications, including different repeat sizes and genome-specific regions that are difficult due to challenging variants in each GIAB sample
+- **`v3.1-GRCh3X-stratifications-all-except-genome-specific-stratifications.tsv`**\
+The "all-expect-genome-specific" tsv contains all stratifications that are difficult due to challenging variants but excludes Genome Specific stratifications.
+- **`v3.1-GRCh3X-CMRG-stratifications.tsv`**\
+The "CMRG" tsv contains a simplified set of stratifications that can be used when benchmarking against the GIAB CMRG v1.00 small variant benchmark. This contains only higher level stratifications.
+- **`v3.1-GRCh3X-v4.2.1-stratifications.tsv`**\
+The "v4.2.1" tsv contains a simplified set of stratifications that can be used when benchmarking against the whole genome small variant benchmarks such as GIAB v4.2.1. This contains only higher level stratifications.
 
-**`CHANGELOG`**\
+*CHM13v2.0*
+-  **`v3.1-CHM13v2.0-all-stratifications.tsv`**\
+The "all" tsv contains all stratifications for CHM13v2.0.
+
+**`CHANGELOG`**  
 Contains revisions, removals and additions between versions of stratification releases.
 
-**`post-processing/`**\
-Stratification BED files were generated by different people using different methods as detailed in stratification-specific READMEs.  To ensure file consistency all BED files were post-processed.  This directory contains README, scripts, notebooks and dependency files used for post-processing. 
+**`post-processing/`**  
+Stratification BED files were generated by different people using different methods as detailed in stratification-specific READMEs.  To ensure file consistency all BED files were post-processed.  This directory contains README, scripts, notebooks and dependency file information  used for post-processing. 
 
-**`validation/`**\
-Following post-processing, all stratifications were validated for chromosome coverage and stratification functionality in benchmarking.  This directory contains README, scripts, and dependency files used for validation. Output of coverage analysis can be found in `3.0-stratification_validation.html`.
+**`validation/`**  
+Following post-processing, all stratifications were validated for chromosome coverage and stratification functionality in benchmarking.  This directory contains README, scripts, and dependency file information used for validation. 
 
 ----------------------
 SUMMARY OF STRATIFICATIONS
 ----------------------
-Stratifications can be binned into seven types: Low Complexity, Functional Technically Difficult, Genome Specific, Functional Regions, GC content, mappability, Other Difficult, Segmental Duplications, union and ancestry. General information for stratification types are provided below. Associated stratification READMEs provide more information on what the individual files cover and represent.
+Stratifications can be binned into seven types: Low Complexity, Functional Technically Difficult, Genome Specific, Functional Regions, GC content, mappability, Other Difficult, Segmental Duplications, Union, Ancestry and XY. General information for stratification types are provided below. Associated stratification READMEs provide more information on what the individual files cover and represent.
 
-**Low Complexity**\
-*GRCh37 (24 stratifications) and GRCh38 (24 stratifications)*\
+**Low Complexity**  
+*GRCh37 (28 stratifications), GRCh38 (28 stratifications) and CHM13v2.0 (27 stratifications)*  
 Regions with different types and sizes of low complexity sequence, e.g., homopolymers, STRs, VNTRs and other locally repetitive sequences.
 
-**Functional Technically Difficult**\
-*GRCh37 (3 stratifications) and GRCh38 (3 stratifications)*\
-Functional, or potentially functional, regions that are also likely to be technically difficult to sequences.
+**Other Difficult**  
+*GRCh37 (11 stratifications), GRCh38 (13 stratifications) and CHM13v2.0 (1 stratification)*  
+Highly variable regions like the VDJ and MHC, near gaps in the reference or errors in the reference and rDNA (CHM13 only).
 
-**Genome Specific (GIAB benchmark v4.2.1)**\
-*GRCh37 (90 stratifications) and GRCh38 (90 stratifications)*\
-Difficult regions due to potentially difficult variation in a NIST/GIAB sample, including 1) regions containing putative compound heterozygous variants 2) small regions containing multiple phased variants, 3) regions with potential structural or copy number variation.
-
-**Functional Regions**\
-*GRCh37 (2 stratifications) and GRCh38 (2 stratifications)*\
-Regions to stratify variants inside and outside coding regions.
-
-**GC Content**\
-*GRCh37 (14 stratifications) and GRCh38 (14 stratifications)*\
-Regions with different ranges (%) of GC content.
-
-**Mappability**\
-*GRCh37 (4 stratifications) and GRCh38 (4 stratifications)*\
-Regions where short read mapping can be challenging.
-
-**Other Difficult**\
-*GRCh37 (11 stratifications) and GRCh38 (13 stratifications)*\
-Highly variable regions like the VDJ and MHC, near gaps in the reference or errors in the reference.
-
-**Segmental Duplications**\
-*GRCh37 (9 stratifications) and GRCh38 (9 stratifications)*\
+**Segmental Duplications**  
+*GRCh37 (9 stratifications), GRCh38 (9 stratifications), CHM13v2.0 (2 stratifications)*  
 Regions with segmental duplications or regions with non-trivial self-chain alignments.
 
-
-**Union**\
-*GRCh37 (4 stratifications) and GRCh38 (4 stratifications)*\
+**Union**  
+*GRCh37 (4 stratifications), GRCh38 (4 stratifications), CHM13v2.0 (2 stratifications)*  
 Regions with different general types of difficult regions or any type o difficult region or complex variant. For example, performance can be measured in just "easy" or "all difficult" regions of the genome.
 
-**Ancestry**\
-*GRCh38 only (6 stratifications)*\
+**XY**  
+*GRCh37 (9 stratifications), GRCh38 (9 stratifications), CHM13v2.0 (7 stratifications)*
+Chomosome XY specific regions such as PAR, XTR or ampliconic.
+
+**Functional Technically Difficult**  
+*GRCh37 (3 stratifications) and GRCh38 (3 stratifications)*  
+Functional, or potentially functional, regions that are also likely to be technically difficult to sequences.
+
+**Genome Specific (GIAB benchmark v4.2.1)**  
+*GRCh37 (90 stratifications) and GRCh38 (90 stratifications)*  
+Difficult regions due to potentially difficult variation in a NIST/GIAB sample, including 1) regions containing putative compound heterozygous variants 2) small regions containing multiple phased variants, 3) regions with potential structural or copy number variation.
+
+**Functional Regions**  
+*GRCh37 (2 stratifications) and GRCh38 (2 stratifications)*  
+Regions to stratify variants inside and outside coding regions.
+
+**GC Content**  
+*GRCh37 (14 stratifications) and GRCh38 (14 stratifications)*  
+Regions with different ranges (%) of GC content.
+
+**Mappability**  
+*GRCh37 (4 stratifications) and GRCh38 (4 stratifications)*  
+Regions where short read mapping can be challenging.
+
+**Ancestry**  
+*GRCh38 only (6 stratifications)*  
 Regions with inferred patterns of local ancestry.
 
 --------------------------
@@ -137,10 +138,10 @@ METHODOLOGICAL INFORMATION
 Methods used to generate the various stratifications can be found in specific stratification type READMEs. 
 
 #### Post Processing of all files:
-Post-processing for file consistency was performed and described in GitHub post-processing directory. Stratification BED(s) were post processed to remove reference Ns, specifically gaps and pseudoautosomal Y regions. The BEDs are merged and sorted and only contain chromosomes 1-22, X and Y. A file crosswalk is provided in the post-processing directory for use in correlating script file naming and files generated in post-processing.
+Post-processing for file consistency was performed and described in GitHub post-processing directory. Stratification BED(s) were post processed to remove reference Ns, specifically gaps and pseudoautosomal Y regions (GRCh3X only). The BEDs are merged and sorted and only contain chromosomes 1-22, X and Y, as appropriate. A file crosswalk is provided in the post-processing directory for use in correlating script file naming and files generated in post-processing.
 
 #### Quality-Assurance of all files:
-Coverage comparison between GRCh37 and GRCh38 BED files was performed, where applicable, for each chromosome using R. We confirmed coverage between the BEDs were as expected. Validation of chromosome coverage can be found in the GitHub validation directory. Benchmarking of a HiFi-DeepVariant callset was also performed using stratifications with hap.py.  Callset was benchmarked against the v4.2.1 GIAB benchmark set to ensure benchmarking statistics in these regions were as expected. 
+Coverage comparison between GRCh37, GRCh38 BED and CHM13v2.0 files was performed, where applicable, for each chromosome using R. We confirmed coverage between the BEDs were as expected. Validation of chromosome coverage can be found in the GitHub validation directory. Benchmarking of a HiFi-DeepVariant callset was also performed using stratifications with hap.py.  Callset was benchmarked against the HG002 HPRC.cur.20211005 (trio hifiasm diploid assembly) draft-benchmark to ensure benchmarking statistics in these regions were as expected. 
 
 --------------------------
 DATA-USE POLICY 
