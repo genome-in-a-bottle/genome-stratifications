@@ -36,7 +36,7 @@ If stratifications were used in benchmarking with GA4GH/GIAB best practices or h
 
 #### Links to publicly accessible locations of the data:
 
-[GIAB FTP URL](https://ftp://ftp-trace.ncbi.nlm.nih.gov/ReferenceSamples/giab/release/genome-stratifications/)
+[GIAB FTP URL](https://ftp-trace.ncbi.nlm.nih.gov/ReferenceSamples/giab/release/genome-stratifications/)
 - Individual stratification BED files as well as zipped directories (tar.gz) of files
 - stratification READMEs
 - .tsvs for benchmarking with hap.py
